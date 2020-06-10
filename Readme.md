@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов» [![Build status][travis-image]][travis-url]
 
 * Студент: [Дмитрий Неклюдов](https://up.htmlacademy.ru/react/4/user/991089).
-* Наставник: `Неизвестно`.
+* Наставник: [Вадим Атрощенко](https://htmlacademy.ru/profile/id1351257).
 
 ---
 
