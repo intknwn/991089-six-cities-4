@@ -6,7 +6,14 @@ const Settings = {
   PLACES: 256,
 };
 
+const PROPERTY_NAMES = [
+  `Beautiful & luxurious apartment at great location`,
+  `Wood and stone place`,
+  `Canal View Prinsengracht`,
+  `Nice, cozy, warm big bed apartment`
+];
+
 ReactDOM.render(
-    <App placesCount={Settings.PLACES}/>,
+    <App propertyNames={PROPERTY_NAMES} placesCount={Settings.PLACES}/>,
     document.querySelector(`#root`)
 );
