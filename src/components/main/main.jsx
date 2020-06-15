@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {nanoid} from 'nanoid';
 
 const getWidth = (width) => {
   return {
@@ -11,7 +10,7 @@ const getWidth = (width) => {
 const createPlaceCards = (names) => {
   return names.map((name) => {
     return (
-      <article key={nanoid()} className="cities__place-card place-card">
+      <article key={name} className="cities__place-card place-card">
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
