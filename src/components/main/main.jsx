@@ -101,8 +101,8 @@ const Main = (props) => {
           */}
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {propertyNames.map((name) => {
-                  return (
+                {propertyNames.map((name) =>
+                  (
                     <article key={name} className="cities__place-card place-card">
                       <div className="place-card__mark">
                         <span>Premium</span>
@@ -137,8 +137,8 @@ const Main = (props) => {
                         <p className="place-card__type">Apartment</p>
                       </div>
                     </article>
-                  );
-                })}
+                  )
+                )}
               </div>
             </section>
             <div className="cities__right-section">
