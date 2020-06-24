@@ -1,12 +1,13 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import App from './app.jsx';
-import {PROPERTY_NAMES, Settings} from '../../const.js';
+import {Settings} from '../../const.js';
+import {Offers} from '../../mocks/offers.js';
 
 it(`render App`, () => {
   const tree = renderer
     .create(<App
-      propertyNames={PROPERTY_NAMES}
+      places={Offers}
       placesCount={Settings.PLACES}
     />)
     .toJSON();

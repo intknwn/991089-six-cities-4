@@ -1,8 +1,9 @@
 import React from "react";
-import {configure, shallow} from "enzyme";
+import {configure, mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import Main from "./main.jsx";
-import {PROPERTY_NAMES, Settings} from '../../const.js';
+import {Settings} from '../../const.js';
+import {Offers} from '../../mocks/offers.js';
 
 configure({
   adapter: new Adapter(),
@@ -11,9 +12,9 @@ configure({
 it(`Card title click`, () => {
   const onCardTitleClick = jest.fn();
 
-  const main = shallow(
+  const main = mount(
       <Main
-        propertyNames={PROPERTY_NAMES}
+        places={Offers}
         placesCount={Settings.PLACES}
         onCardTitleClick={onCardTitleClick}
       />
@@ -25,5 +26,5 @@ it(`Card title click`, () => {
     title.simulate(`click`);
   });
 
-  expect(onCardTitleClick.mock.calls.length).toBe(PROPERTY_NAMES.length);
+  expect(onCardTitleClick.mock.calls.length).toBe(Offers.length);
 });

@@ -1,12 +1,13 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import Main from './main.jsx';
-import {PROPERTY_NAMES, Settings} from '../../const.js';
+import {Settings} from '../../const.js';
+import {Offers} from '../../mocks/offers.js';
 
 it(`render Main`, () => {
   const tree = renderer
     .create(<Main
-      propertyNames={PROPERTY_NAMES}
+      places={Offers}
       placesCount={Settings.PLACES}
       onCardTitleClick={() => {}}
     />)
