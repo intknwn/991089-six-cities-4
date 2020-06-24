@@ -301,7 +301,7 @@ exports[`render Main 1`] = `
                     <span
                       style={
                         Object {
-                          "width": 60,
+                          "width": "60%",
                         }
                       }
                     />
@@ -406,7 +406,7 @@ exports[`render Main 1`] = `
                     <span
                       style={
                         Object {
-                          "width": 100,
+                          "width": "100%",
                         }
                       }
                     />
@@ -505,7 +505,7 @@ exports[`render Main 1`] = `
                     <span
                       style={
                         Object {
-                          "width": 80,
+                          "width": "80%",
                         }
                       }
                     />
@@ -604,7 +604,7 @@ exports[`render Main 1`] = `
                     <span
                       style={
                         Object {
-                          "width": 80,
+                          "width": "80%",
                         }
                       }
                     />
