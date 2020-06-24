@@ -4,7 +4,7 @@ import {OfferType} from '../../const.js';
 
 const getRatingWidth = (userRating) => {
   return {
-    width: Math.round(userRating) * 100 / 5,
+    width: `${Math.round(userRating) * 100 / 5}%`,
   };
 };
 
