@@ -28,10 +28,10 @@ class PlacesList extends React.PureComponent {
 
     return (
       <div className="cities__places-list places__list tabs__content">
-        {places.map((place, i) => {
+        {places.map((place) => {
           return (
             <PlaceCard
-              key={`${i}-${place.title}`}
+              key={place.title}
               placeDetails={place}
               onMouseEnter={this.handleCardMouseEnter}
               onMouseLeave={this.handleCardMouseLeave}

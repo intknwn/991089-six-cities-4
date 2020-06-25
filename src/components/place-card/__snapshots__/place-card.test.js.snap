@@ -7,13 +7,6 @@ exports[`PlaceCard render 1`] = `
   onMouseLeave={[Function]}
 >
   <div
-    className="place-card__mark"
-  >
-    <span>
-      Premium
-    </span>
-  </div>
-  <div
     className="cities__image-wrapper place-card__image-wrapper"
   >
     <a
@@ -23,7 +16,7 @@ exports[`PlaceCard render 1`] = `
         alt="Place image"
         className="place-card__image"
         height="200"
-        src="img/apartment-01.jpg"
+        src="https://via.placeholder.com/260x200?text=Place+1"
         width="260"
       />
     </a>
@@ -41,7 +34,7 @@ exports[`PlaceCard render 1`] = `
           className="place-card__price-value"
         >
           €
-          120
+          230
         </b>
         <span
           className="place-card__price-text"
@@ -50,7 +43,7 @@ exports[`PlaceCard render 1`] = `
         </span>
       </div>
       <button
-        className="place-card__bookmark-button  button"
+        className="place-card__bookmark-button false button"
         type="button"
       >
         <svg
@@ -78,7 +71,7 @@ exports[`PlaceCard render 1`] = `
         <span
           style={
             Object {
-              "width": "60%",
+              "width": "20%",
             }
           }
         />
@@ -96,13 +89,13 @@ exports[`PlaceCard render 1`] = `
         href="#"
         onClick={[Function]}
       >
-        Beautiful & luxurious apartment at great location
+        Comfortable Double Room near Amsterdam Center
       </a>
     </h2>
     <p
       className="place-card__type"
     >
-      apartment
+      room
     </p>
   </div>
 </article>

@@ -8,12 +8,12 @@ configure({
 });
 
 const mock = {
-  picture: `img/apartment-01.jpg`,
-  isPremium: true,
-  rate: 120,
-  title: `Beautiful & luxurious apartment at great location`,
-  type: `apartment`,
-  rating: 3,
+  picture: `https://via.placeholder.com/260x200?text=Place+1`,
+  isPremium: false,
+  rate: 230,
+  title: `Comfortable Double Room near Amsterdam Center`,
+  type: `room`,
+  rating: 1,
   isFavorite: false,
 };
 

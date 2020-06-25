@@ -1,4 +1,4 @@
-export const Offers = [{
+export const offers = [{
   picture: `img/apartment-01.jpg`,
   isPremium: true,
   rate: 120,
