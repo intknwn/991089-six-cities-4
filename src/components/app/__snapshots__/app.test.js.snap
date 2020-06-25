@@ -226,14 +226,9 @@ exports[`render App 1`] = `
           >
             <article
               className="cities__place-card place-card"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
             >
-              <div
-                className="place-card__mark"
-              >
-                <span>
-                  Premium
-                </span>
-              </div>
               <div
                 className="cities__image-wrapper place-card__image-wrapper"
               >
@@ -243,9 +238,9 @@ exports[`render App 1`] = `
                   <img
                     alt="Place image"
                     className="place-card__image"
-                    height={200}
-                    src="img/apartment-01.jpg"
-                    width={260}
+                    height="200"
+                    src="https://via.placeholder.com/260x200?text=Place+1"
+                    width="260"
                   />
                 </a>
               </div>
@@ -261,7 +256,8 @@ exports[`render App 1`] = `
                     <b
                       className="place-card__price-value"
                     >
-                      €120
+                      €
+                      230
                     </b>
                     <span
                       className="place-card__price-text"
@@ -270,13 +266,13 @@ exports[`render App 1`] = `
                     </span>
                   </div>
                   <button
-                    className="place-card__bookmark-button button"
+                    className="place-card__bookmark-button false button"
                     type="button"
                   >
                     <svg
                       className="place-card__bookmark-icon"
-                      height={19}
-                      width={18}
+                      height="19"
+                      width="18"
                     >
                       <use
                         xlinkHref="#icon-bookmark"
@@ -298,7 +294,7 @@ exports[`render App 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "80%",
+                          "width": "20%",
                         }
                       }
                     />
@@ -316,18 +312,20 @@ exports[`render App 1`] = `
                     href="#"
                     onClick={[Function]}
                   >
-                    Beautiful & luxurious apartment at great location
+                    Comfortable Double Room near Amsterdam Center
                   </a>
                 </h2>
                 <p
                   className="place-card__type"
                 >
-                  Apartment
+                  room
                 </p>
               </div>
             </article>
             <article
               className="cities__place-card place-card"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
             >
               <div
                 className="place-card__mark"
@@ -345,9 +343,9 @@ exports[`render App 1`] = `
                   <img
                     alt="Place image"
                     className="place-card__image"
-                    height={200}
-                    src="img/apartment-01.jpg"
-                    width={260}
+                    height="200"
+                    src="https://via.placeholder.com/260x200?text=Place+2"
+                    width="260"
                   />
                 </a>
               </div>
@@ -363,7 +361,8 @@ exports[`render App 1`] = `
                     <b
                       className="place-card__price-value"
                     >
-                      €120
+                      €
+                      150
                     </b>
                     <span
                       className="place-card__price-text"
@@ -372,13 +371,13 @@ exports[`render App 1`] = `
                     </span>
                   </div>
                   <button
-                    className="place-card__bookmark-button button"
+                    className="place-card__bookmark-button place-card__bookmark-button--active button"
                     type="button"
                   >
                     <svg
                       className="place-card__bookmark-icon"
-                      height={19}
-                      width={18}
+                      height="19"
+                      width="18"
                     >
                       <use
                         xlinkHref="#icon-bookmark"
@@ -400,7 +399,7 @@ exports[`render App 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "80%",
+                          "width": "100%",
                         }
                       }
                     />
@@ -418,26 +417,21 @@ exports[`render App 1`] = `
                     href="#"
                     onClick={[Function]}
                   >
-                    Wood and stone place
+                    Spacious and stylish downtown suite
                   </a>
                 </h2>
                 <p
                   className="place-card__type"
                 >
-                  Apartment
+                  house
                 </p>
               </div>
             </article>
             <article
               className="cities__place-card place-card"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
             >
-              <div
-                className="place-card__mark"
-              >
-                <span>
-                  Premium
-                </span>
-              </div>
               <div
                 className="cities__image-wrapper place-card__image-wrapper"
               >
@@ -447,9 +441,9 @@ exports[`render App 1`] = `
                   <img
                     alt="Place image"
                     className="place-card__image"
-                    height={200}
-                    src="img/apartment-01.jpg"
-                    width={260}
+                    height="200"
+                    src="https://via.placeholder.com/260x200?text=Place+3"
+                    width="260"
                   />
                 </a>
               </div>
@@ -465,7 +459,8 @@ exports[`render App 1`] = `
                     <b
                       className="place-card__price-value"
                     >
-                      €120
+                      €
+                      110
                     </b>
                     <span
                       className="place-card__price-text"
@@ -474,13 +469,13 @@ exports[`render App 1`] = `
                     </span>
                   </div>
                   <button
-                    className="place-card__bookmark-button button"
+                    className="place-card__bookmark-button place-card__bookmark-button--active button"
                     type="button"
                   >
                     <svg
                       className="place-card__bookmark-icon"
-                      height={19}
-                      width={18}
+                      height="19"
+                      width="18"
                     >
                       <use
                         xlinkHref="#icon-bookmark"
@@ -502,7 +497,7 @@ exports[`render App 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "80%",
+                          "width": "40%",
                         }
                       }
                     />
@@ -520,26 +515,21 @@ exports[`render App 1`] = `
                     href="#"
                     onClick={[Function]}
                   >
-                    Canal View Prinsengracht
+                    Studio 13
                   </a>
                 </h2>
                 <p
                   className="place-card__type"
                 >
-                  Apartment
+                  hotel
                 </p>
               </div>
             </article>
             <article
               className="cities__place-card place-card"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
             >
-              <div
-                className="place-card__mark"
-              >
-                <span>
-                  Premium
-                </span>
-              </div>
               <div
                 className="cities__image-wrapper place-card__image-wrapper"
               >
@@ -549,9 +539,9 @@ exports[`render App 1`] = `
                   <img
                     alt="Place image"
                     className="place-card__image"
-                    height={200}
-                    src="img/apartment-01.jpg"
-                    width={260}
+                    height="200"
+                    src="https://via.placeholder.com/260x200?text=Place+4"
+                    width="260"
                   />
                 </a>
               </div>
@@ -567,7 +557,8 @@ exports[`render App 1`] = `
                     <b
                       className="place-card__price-value"
                     >
-                      €120
+                      €
+                      240
                     </b>
                     <span
                       className="place-card__price-text"
@@ -576,13 +567,13 @@ exports[`render App 1`] = `
                     </span>
                   </div>
                   <button
-                    className="place-card__bookmark-button button"
+                    className="place-card__bookmark-button false button"
                     type="button"
                   >
                     <svg
                       className="place-card__bookmark-icon"
-                      height={19}
-                      width={18}
+                      height="19"
+                      width="18"
                     >
                       <use
                         xlinkHref="#icon-bookmark"
@@ -604,7 +595,7 @@ exports[`render App 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "80%",
+                          "width": "60%",
                         }
                       }
                     />
@@ -622,13 +613,13 @@ exports[`render App 1`] = `
                     href="#"
                     onClick={[Function]}
                   >
-                    Nice, cozy, warm big bed apartment
+                    Cozy room in lively apartment and neighbourhood
                   </a>
                 </h2>
                 <p
                   className="place-card__type"
                 >
-                  Apartment
+                  apartment
                 </p>
               </div>
             </article>

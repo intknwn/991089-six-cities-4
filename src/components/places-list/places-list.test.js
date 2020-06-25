@@ -1,7 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Main from './main.jsx';
-import {Settings} from '../../const.js';
+import PlacesList from './places-list.jsx';
 
 const offers = [{
   picture: `https://via.placeholder.com/260x200?text=Place+1`,
@@ -38,14 +37,13 @@ const offers = [{
 }
 ];
 
-it(`render Main`, () => {
-  const tree = renderer
-    .create(<Main
-      places={offers}
-      placesCount={Settings.PLACES}
-      onCardTitleClick={() => {}}
-    />)
-    .toJSON();
+it(`PlaceCard render`, () => {
+  const tree = renderer.create(
+      <PlacesList
+        places={offers}
+        onCardTitleClick={() => {}}
+      />
+  ).toJSON();
 
   expect(tree).toMatchSnapshot();
 });
