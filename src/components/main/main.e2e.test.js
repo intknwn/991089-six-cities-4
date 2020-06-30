@@ -16,6 +16,7 @@ const offers = [{
   type: `room`,
   rating: 1,
   isFavorite: false,
+  location: [52.3909553943508, 4.85309666406198]
 }, {
   picture: `https://via.placeholder.com/260x200?text=Place+2`,
   isPremium: true,
@@ -24,6 +25,7 @@ const offers = [{
   type: `house`,
   rating: 5,
   isFavorite: true,
+  location: [52.369553943508, 4.85309666406198]
 }, {
   picture: `https://via.placeholder.com/260x200?text=Place+3`,
   isPremium: false,
@@ -32,6 +34,7 @@ const offers = [{
   type: `hotel`,
   rating: 2,
   isFavorite: true,
+  location: [52.3909553943508, 4.929309666406198]
 }, {
   picture: `https://via.placeholder.com/260x200?text=Place+4`,
   isPremium: false,
@@ -40,6 +43,7 @@ const offers = [{
   type: `apartment`,
   rating: 3,
   isFavorite: false,
+  location: [52.3809553943508, 4.939309666406198]
 }
 ];
 
