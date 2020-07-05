@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {Main} from './main.jsx';
+import Places from './places.jsx';
 
 const city = {
   name: `Paris`,
@@ -27,17 +27,13 @@ const city = {
   }],
 };
 
-it(`render Main`, () => {
-  const tree = renderer
-    .create(<Main
-      city={city}
-      onCardTitleClick={() => {}}
-      onCityTabClick={() => {}}
-    />,
-    {
-      createNodeMock: () => document.createElement(`section`)
-    })
-    .toJSON();
+it(`Places render`, () => {
+  const tree = renderer.create(
+      <Places
+        city={city}
+        onCardTitleClick={() => {}}
+      />
+  ).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

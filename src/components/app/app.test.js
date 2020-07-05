@@ -1,56 +1,49 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import App from './app.jsx';
-import {Settings} from '../../const.js';
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
 
-const offers = [{
-  picture: `https://via.placeholder.com/260x200?text=Place+1`,
-  isPremium: false,
-  rate: 230,
-  title: `Comfortable Double Room near Amsterdam Center`,
-  type: `room`,
-  rating: 1,
-  isFavorite: false,
-  location: [52.3909553943508, 4.85309666406198]
-}, {
-  picture: `https://via.placeholder.com/260x200?text=Place+2`,
-  isPremium: true,
-  rate: 150,
-  title: `Spacious and stylish downtown suite`,
-  type: `house`,
-  rating: 5,
-  isFavorite: true,
-  location: [52.369553943508, 4.85309666406198]
-}, {
-  picture: `https://via.placeholder.com/260x200?text=Place+3`,
-  isPremium: false,
-  rate: 110,
-  title: `Studio 13`,
-  type: `hotel`,
-  rating: 2,
-  isFavorite: true,
-  location: [52.3909553943508, 4.929309666406198]
-}, {
-  picture: `https://via.placeholder.com/260x200?text=Place+4`,
-  isPremium: false,
-  rate: 240,
-  title: `Cozy room in lively apartment and neighbourhood`,
-  type: `apartment`,
-  rating: 3,
-  isFavorite: false,
-  location: [52.3809553943508, 4.939309666406198]
-}
-];
+const mockStore = configureStore([]);
+
+const city = {
+  name: `Paris`,
+  coords: [48.8566, 2.3522],
+  offers: [{
+    picture: `img/apartment-01.jpg`,
+    isPremium: true,
+    rate: 120,
+    title: `Charming & cozy studio`,
+    type: `apartment`,
+    rating: 3,
+    isFavorite: false,
+    location: [48.872127, 2.374092],
+  },
+  {
+    picture: `img/apartment-01.jpg`,
+    isPremium: true,
+    rate: 120,
+    title: `Appartement proche du belvédère de Paris`,
+    type: `apartment`,
+    rating: 3,
+    isFavorite: false,
+    location: [48.852738, 2.314865],
+  }],
+};
 
 it(`render App`, () => {
+  const store = mockStore({
+    city
+  });
+
   const tree = renderer
-    .create(<App
-      places={offers}
-      placesCount={Settings.PLACES}
-    />,
-    {
-      createNodeMock: () => document.createElement(`section`)
-    })
+    .create(
+        <Provider store={store}>
+          <App />
+        </Provider>,
+        {
+          createNodeMock: () => document.createElement(`section`)
+        })
     .toJSON();
 
   expect(tree).toMatchSnapshot();
