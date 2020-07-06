@@ -57,7 +57,7 @@ exports[`render Main 1`] = `
     </div>
   </header>
   <main
-    className="page__main page__main--index"
+    className="page__main page__main--index "
   >
     <h1
       className="visually-hidden"
@@ -172,7 +172,9 @@ exports[`render Main 1`] = `
             className="places__found"
           >
             2
-             places to stay in 
+             
+            places
+             to stay in 
             Paris
           </b>
           <form
@@ -281,7 +283,7 @@ exports[`render Main 1`] = `
                     </span>
                   </div>
                   <button
-                    className="place-card__bookmark-button false button"
+                    className="place-card__bookmark-button  button"
                     type="button"
                   >
                     <svg
@@ -386,7 +388,7 @@ exports[`render Main 1`] = `
                     </span>
                   </div>
                   <button
-                    className="place-card__bookmark-button false button"
+                    className="place-card__bookmark-button  button"
                     type="button"
                   >
                     <svg

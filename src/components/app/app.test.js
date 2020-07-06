@@ -6,7 +6,7 @@ import configureStore from "redux-mock-store";
 
 const mockStore = configureStore([]);
 
-const city = {
+const cities = [{
   name: `Paris`,
   coords: [48.8566, 2.3522],
   offers: [{
@@ -29,11 +29,12 @@ const city = {
     isFavorite: false,
     location: [48.852738, 2.314865],
   }],
-};
+}];
 
 it(`render App`, () => {
   const store = mockStore({
-    city
+    cities,
+    activeCity: `Paris`,
   });
 
   const tree = renderer

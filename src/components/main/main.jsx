@@ -37,7 +37,7 @@ const Main = ({
           </div>
         </div>
       </header>
-      <main className="page__main page__main--index">
+      <main className={`page__main page__main--index ${city.offers.length === 0 ? `page__main--index-empty` : ``}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
@@ -77,7 +77,7 @@ Main.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  city: state.city,
+  city: state.cities.find((city) => city.name === state.activeCity),
 });
 
 const mapDispatchToProps = (dispatch) => ({

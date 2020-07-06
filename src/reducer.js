@@ -1,8 +1,10 @@
 import {extend} from "./utils.js";
 import {cities} from './mocks/cities.js';
+import {citiesNames} from './const.js';
 
 const initialState = {
-  city: cities[0],
+  cities,
+  activeCity: citiesNames[0],
 };
 
 const ActionType = {
@@ -12,7 +14,7 @@ const ActionType = {
 const ActionCreator = {
   setCity: (cityName) => ({
     type: ActionType.SET_CITY,
-    payload: cities.find((city) => city.name === cityName),
+    payload: cityName,
   })
 };
 
@@ -20,7 +22,7 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.SET_CITY:
       return extend(state, {
-        city: action.payload,
+        activeCity: action.payload,
       });
   }
 

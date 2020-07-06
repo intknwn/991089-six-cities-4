@@ -19,7 +19,9 @@ exports[`Places render 1`] = `
         className="places__found"
       >
         2
-         places to stay in 
+         
+        places
+         to stay in 
         Paris
       </b>
       <form
@@ -128,7 +130,7 @@ exports[`Places render 1`] = `
                 </span>
               </div>
               <button
-                className="place-card__bookmark-button false button"
+                className="place-card__bookmark-button  button"
                 type="button"
               >
                 <svg
@@ -233,7 +235,7 @@ exports[`Places render 1`] = `
                 </span>
               </div>
               <button
-                className="place-card__bookmark-button false button"
+                className="place-card__bookmark-button  button"
                 type="button"
               >
                 <svg
