@@ -16,44 +16,79 @@ const ICON_CONFIG = leaflet.icon({
   iconSize: [30, 30]
 });
 
-class Map extends React.PureComponent {
+class Map extends React.Component {
   constructor(props) {
     super(props);
 
-    this.mapRef = React.createRef();
+    this._mapRef = React.createRef();
+    this._map = null;
+    this._layerGroup = null;
   }
 
   render() {
-    return <section className="cities__map map" ref={this.mapRef}/>;
+    return <section className="cities__map map" ref={this._mapRef}/>;
   }
 
-  componentDidMount() {
-    const container = this.mapRef.current;
-    const {places} = this.props;
+  _createMap() {
+    if (!this._mapRef || !this._mapRef.current) {
+      return;
+    }
 
-    const map = leaflet.map(container, MAP_CONFIG);
+    const container = this._mapRef.current;
+    const {cityCoords, places} = this.props;
+
+    this._map = leaflet.map(container, MAP_CONFIG);
 
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
-      .addTo(map);
+      .addTo(this._map);
 
-    map.setView(DEFAULT_POSITION, DEFAULT_ZOOM);
+    this._map.setView(cityCoords, DEFAULT_ZOOM);
 
     if (places) {
-      places.forEach((place) => {
-        leaflet
-          .marker(place.location, {ICON_CONFIG})
-          .addTo(map);
-      });
+      this._addMarkers(places);
     }
+  }
+
+  _addMarkers(places) {
+    const markers = places.map((place) => {
+      return leaflet.marker(place.location, {ICON_CONFIG});
+    });
+
+    this._layerGroup = leaflet.layerGroup(markers).addTo(this._map);
+  }
+
+  componentDidMount() {
+    this._createMap();
+  }
+
+  componentDidUpdate(prevProps) {
+    const {cityCoords, places} = this.props;
+
+    if (prevProps.places !== places) {
+      this._layerGroup.clearLayers();
+      this._addMarkers(places);
+      this._map.setView(cityCoords, DEFAULT_ZOOM);
+    }
+  }
+
+  componentWillUnmount() {
+    this.destroy();
+  }
+
+  destroy() {
+    this._map.remove();
+    this._map = null;
+    this._layerGroup = null;
   }
 }
 
 export default Map;
 
 Map.propTypes = {
+  cityCoords: PropTypes.arrayOf(PropTypes.number).isRequired,
   places: PropTypes.arrayOf(PropTypes.shape({
     picture: PropTypes.string.isRequired,
     isPremium: PropTypes.bool.isRequired,

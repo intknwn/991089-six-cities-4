@@ -1,60 +1,45 @@
 import React from "react";
 import {configure, mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import Main from "./main.jsx";
-import {Settings} from '../../const.js';
+import {Main} from "./main.jsx";
 
 configure({
   adapter: new Adapter(),
 });
 
-const offers = [{
-  picture: `https://via.placeholder.com/260x200?text=Place+1`,
-  isPremium: false,
-  rate: 230,
-  title: `Comfortable Double Room near Amsterdam Center`,
-  type: `room`,
-  rating: 1,
-  isFavorite: false,
-  location: [52.3909553943508, 4.85309666406198]
-}, {
-  picture: `https://via.placeholder.com/260x200?text=Place+2`,
-  isPremium: true,
-  rate: 150,
-  title: `Spacious and stylish downtown suite`,
-  type: `house`,
-  rating: 5,
-  isFavorite: true,
-  location: [52.369553943508, 4.85309666406198]
-}, {
-  picture: `https://via.placeholder.com/260x200?text=Place+3`,
-  isPremium: false,
-  rate: 110,
-  title: `Studio 13`,
-  type: `hotel`,
-  rating: 2,
-  isFavorite: true,
-  location: [52.3909553943508, 4.929309666406198]
-}, {
-  picture: `https://via.placeholder.com/260x200?text=Place+4`,
-  isPremium: false,
-  rate: 240,
-  title: `Cozy room in lively apartment and neighbourhood`,
-  type: `apartment`,
-  rating: 3,
-  isFavorite: false,
-  location: [52.3809553943508, 4.939309666406198]
-}
-];
+const city = {
+  name: `Paris`,
+  coords: [48.8566, 2.3522],
+  offers: [{
+    picture: `img/apartment-01.jpg`,
+    isPremium: true,
+    rate: 120,
+    title: `Charming & cozy studio`,
+    type: `apartment`,
+    rating: 3,
+    isFavorite: false,
+    location: [48.872127, 2.374092],
+  },
+  {
+    picture: `img/apartment-01.jpg`,
+    isPremium: true,
+    rate: 120,
+    title: `Appartement proche du belvédère de Paris`,
+    type: `apartment`,
+    rating: 3,
+    isFavorite: false,
+    location: [48.852738, 2.314865],
+  }],
+};
 
 it(`Card title click`, () => {
   const onCardTitleClick = jest.fn();
 
   const main = mount(
       <Main
-        places={offers}
-        placesCount={Settings.PLACES}
+        city={city}
         onCardTitleClick={onCardTitleClick}
+        onCityTabClick={() => {}}
       />
   );
 
@@ -64,5 +49,5 @@ it(`Card title click`, () => {
     title.simulate(`click`);
   });
 
-  expect(onCardTitleClick.mock.calls.length).toBe(offers.length);
+  expect(onCardTitleClick.mock.calls.length).toBe(city.offers.length);
 });
