@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {OfferType} from '../../const.js';
-import List from '../cities-list/cities-list.jsx';
+import CitiesList from '../cities-list/cities-list.jsx';
 import Places from '../places/places.jsx';
 import NoPlaces from '../no-places/no-places.jsx';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer.js';
 import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
 
-const CitiesList = withActiveItem(List);
+const CitiesListWrapped = withActiveItem(CitiesList);
 
 const Main = ({
   city,
@@ -44,7 +44,7 @@ const Main = ({
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <CitiesList
+            <CitiesListWrapped
               city={city.name}
               onActiveItemSet={onCityTabClick}
             />
