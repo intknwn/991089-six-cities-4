@@ -8,7 +8,7 @@ const getRatingWidth = (userRating) => {
   };
 };
 
-const PlaceCard = ({placeDetails, onMouseEnter, onMouseLeave, onCardTitleClick}) => {
+const PlaceCard = ({placeDetails, onActiveItemSet, onCardTitleClick}) => {
   const {
     picture,
     isPremium,
@@ -21,10 +21,8 @@ const PlaceCard = ({placeDetails, onMouseEnter, onMouseLeave, onCardTitleClick})
 
   return (
     <article className="cities__place-card place-card"
-      onMouseEnter={() => {
-        onMouseEnter(placeDetails);
-      }}
-      onMouseLeave={onMouseLeave}
+      onMouseEnter={() => onActiveItemSet(placeDetails)}
+      onMouseLeave={() => onActiveItemSet(null)}
     >
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
@@ -70,8 +68,7 @@ PlaceCard.propTypes = {
     rating: PropTypes.number.isRequired,
     isFavorite: PropTypes.bool.isRequired,
   }),
-  onMouseEnter: PropTypes.func.isRequired,
-  onMouseLeave: PropTypes.func.isRequired,
+  onActiveItemSet: PropTypes.func.isRequired,
   onCardTitleClick: PropTypes.func.isRequired,
 };
 
