@@ -45,6 +45,7 @@ it(`PlaceCard render`, () => {
   const tree = renderer.create(
       <PlacesList
         places={offers}
+        onActiveItemSet={() => {}}
         onCardTitleClick={() => {}}
       />
   ).toJSON();

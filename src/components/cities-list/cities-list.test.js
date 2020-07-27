@@ -8,7 +8,7 @@ it(`CitiesList render`, () => {
   const tree = renderer
     .create(<CitiesList
       city={city}
-      onCityTabClick={() => {}}
+      onActiveItemSet={() => {}}
     />)
     .toJSON();
 

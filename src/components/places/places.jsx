@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PlacesList from '../places-list/places-list.jsx';
+import List from '../places-list/places-list.jsx';
 import Map from '../map/map.jsx';
 import {OfferType} from '../../const.js';
+import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
+
+const PlacesList = withActiveItem(List);
 
 const Places = ({city, onCardTitleClick}) => {
   const {offers, coords, name: cityName} = city;
@@ -38,6 +41,7 @@ const Places = ({city, onCardTitleClick}) => {
           </form>
           {<PlacesList
             places={offers}
+            onActiveItemSet={() => {}}
             onCardTitleClick={onCardTitleClick}
           />}
         </section>

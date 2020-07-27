@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {OfferType} from '../../const.js';
-import CitiesList from '../cities-list/cities-list.jsx';
+import List from '../cities-list/cities-list.jsx';
 import Places from '../places/places.jsx';
 import NoPlaces from '../no-places/no-places.jsx';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer.js';
+import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
+
+const CitiesList = withActiveItem(List);
 
 const Main = ({
   city,
@@ -43,7 +46,7 @@ const Main = ({
           <section className="locations container">
             <CitiesList
               city={city.name}
-              onCityTabClick={onCityTabClick}
+              onActiveItemSet={onCityTabClick}
             />
           </section>
         </div>

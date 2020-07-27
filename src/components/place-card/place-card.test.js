@@ -16,8 +16,7 @@ it(`PlaceCard render`, () => {
   const tree = renderer.create(
       <PlaceCard
         placeDetails={mock}
-        onMouseEnter={() => {}}
-        onMouseLeave={() => {}}
+        onActiveItemSet={() => {}}
         onCardTitleClick={() => {}}
       />
   ).toJSON();

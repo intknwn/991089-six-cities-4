@@ -23,8 +23,7 @@ it(`Callback contains card element`, () => {
   const placeCard = shallow(
       <PlaceCard
         placeDetails={mock}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={() => {}}
+        onActiveItemSet={onMouseEnter}
         onCardTitleClick={() => {}}
       />
   );

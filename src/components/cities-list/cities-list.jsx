@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {citiesNames} from '../../const.js';
 
-const CitiesList = ({city, onCityTabClick}) => {
+const CitiesList = ({city, onActiveItemSet}) => {
 
   return (
     <ul className="locations__list tabs__list">
@@ -13,7 +13,7 @@ const CitiesList = ({city, onCityTabClick}) => {
           <li className="locations__item" key={name}>
             <a
               className={`locations__item-link tabs__item ${isActive && `tabs__item--active`}`}
-              onClick={() => onCityTabClick(name)}
+              onClick={() => onActiveItemSet(name)}
               href="#">
               <span>{name}</span>
             </a>
@@ -27,7 +27,7 @@ const CitiesList = ({city, onCityTabClick}) => {
 
 CitiesList.propTypes = {
   city: PropTypes.string.isRequired,
-  onCityTabClick: PropTypes.func.isRequired
+  onActiveItemSet: PropTypes.func.isRequired
 };
 
 export default CitiesList;
