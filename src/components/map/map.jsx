@@ -23,6 +23,7 @@ class Map extends React.Component {
     this._mapRef = React.createRef();
     this._map = null;
     this._layerGroup = null;
+    this._cityLocation = null;
   }
 
   render() {
@@ -35,7 +36,10 @@ class Map extends React.Component {
     }
 
     const container = this._mapRef.current;
-    const {cityCoords, places} = this.props;
+    const {places} = this.props;
+
+    const {latitude, longitude, zoom} = places[0].city.location;
+    const cityCoords = [latitude, longitude];
 
     this._map = leaflet.map(container, MAP_CONFIG);
 
@@ -45,7 +49,7 @@ class Map extends React.Component {
       })
       .addTo(this._map);
 
-    this._map.setView(cityCoords, DEFAULT_ZOOM);
+    this._map.setView(cityCoords, zoom);
 
     if (places) {
       this._addMarkers(places);
@@ -54,7 +58,9 @@ class Map extends React.Component {
 
   _addMarkers(places) {
     const markers = places.map((place) => {
-      return leaflet.marker(place.location, {ICON_CONFIG});
+      const {latitude, longitude} = place.location;
+
+      return leaflet.marker([latitude, longitude], {ICON_CONFIG});
     });
 
     this._layerGroup = leaflet.layerGroup(markers).addTo(this._map);
@@ -65,12 +71,15 @@ class Map extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const {cityCoords, places} = this.props;
+    const {places} = this.props;
+
+    const {latitude, longitude, zoom} = places[0].city.location;
+    const cityCoords = [latitude, longitude];
 
     if (prevProps.places !== places) {
       this._layerGroup.clearLayers();
       this._addMarkers(places);
-      this._map.setView(cityCoords, DEFAULT_ZOOM);
+      this._map.setView(cityCoords, zoom);
     }
   }
 
@@ -88,14 +97,38 @@ class Map extends React.Component {
 export default Map;
 
 Map.propTypes = {
-  cityCoords: PropTypes.arrayOf(PropTypes.number).isRequired,
   places: PropTypes.arrayOf(PropTypes.shape({
-    picture: PropTypes.string.isRequired,
-    isPremium: PropTypes.bool.isRequired,
-    rate: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    type: PropTypes.oneOf([OfferType.APARTMENT, OfferType.HOTEL, OfferType.HOUSE, OfferType.ROOM]),
-    rating: PropTypes.number.isRequired,
-    isFavorite: PropTypes.bool.isRequired,
+    "bedrooms": PropTypes.number.isRequired,
+    "city": PropTypes.shape({
+      location: PropTypes.shape({
+        latitude: PropTypes.number.isRequired,
+        longitude: PropTypes.number.isRequired,
+        zoom: PropTypes.number.isRequired,
+      }),
+      name: PropTypes.string.isRequired,
+    }),
+    "description": PropTypes.string.isRequired,
+    "goods": PropTypes.arrayOf(PropTypes.string).isRequired,
+    "host": PropTypes.shape({
+      "avatar_url": PropTypes.string.isRequired,
+      "id": PropTypes.number.isRequired,
+      "is_pro": PropTypes.bool.isRequired,
+      "name": PropTypes.string.isRequired,
+    }),
+    "id": PropTypes.number.isRequired,
+    "images": PropTypes.arrayOf(PropTypes.string).isRequired,
+    "is_favorite": PropTypes.bool.isRequired,
+    "is_premium": PropTypes.bool.isRequired,
+    "location": PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired,
+    }),
+    "max_adults": PropTypes.number.isRequired,
+    "preview_image": PropTypes.string.isRequired,
+    "price": PropTypes.number.isRequired,
+    "rating": PropTypes.number.isRequired,
+    "title": PropTypes.string.isRequired,
+    "type": PropTypes.oneOf([OfferType.APARTMENT, OfferType.HOTEL, OfferType.HOUSE, OfferType.ROOM])
   })),
 };

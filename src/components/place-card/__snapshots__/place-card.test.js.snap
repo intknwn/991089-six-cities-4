@@ -16,7 +16,7 @@ exports[`PlaceCard render 1`] = `
         alt="Place image"
         className="place-card__image"
         height="200"
-        src="https://via.placeholder.com/260x200?text=Place+1"
+        src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/20.jpg"
         width="260"
       />
     </a>
@@ -34,7 +34,7 @@ exports[`PlaceCard render 1`] = `
           className="place-card__price-value"
         >
           €
-          230
+          227
         </b>
         <span
           className="place-card__price-text"
@@ -71,7 +71,7 @@ exports[`PlaceCard render 1`] = `
         <span
           style={
             Object {
-              "width": "20%",
+              "width": "40%",
             }
           }
         />
@@ -89,7 +89,7 @@ exports[`PlaceCard render 1`] = `
         href="#"
         onClick={[Function]}
       >
-        Comfortable Double Room near Amsterdam Center
+        Nice, cozy, warm big bed apartment
       </a>
     </h2>
     <p

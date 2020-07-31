@@ -5,13 +5,16 @@ import CitiesList from '../cities-list/cities-list.jsx';
 import Places from '../places/places.jsx';
 import NoPlaces from '../no-places/no-places.jsx';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer.js';
+import {ActionCreator} from '../../reducer/app/app.js';
 import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
+import {getPlacesByCity} from '../../reducer/data/selectors.js';
+import {getActiveCity} from '../../reducer/app/selectors.js';
 
 const CitiesListWrapped = withActiveItem(CitiesList);
 
 const Main = ({
-  city,
+  places,
+  activeCity,
   onCardTitleClick,
   onCityTabClick,
 }) => {
@@ -40,20 +43,21 @@ const Main = ({
           </div>
         </div>
       </header>
-      <main className={`page__main page__main--index ${city.offers.length === 0 ? `page__main--index-empty` : ``}`}>
+      <main className={`page__main page__main--index ${places.length === 0 ? `page__main--index-empty` : ``}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
             <CitiesListWrapped
-              city={city.name}
+              activeCity={activeCity}
               onActiveItemSet={onCityTabClick}
             />
           </section>
         </div>
-        {city.offers.length === 0 ?
-          <NoPlaces cityName={city.name}/> :
+        {places.length === 0 ?
+          <NoPlaces activeCity={activeCity}/> :
           <Places
-            city={city}
+            places={places}
+            activeCity={activeCity}
             onCardTitleClick={onCardTitleClick}
           />}
       </main>
@@ -62,25 +66,48 @@ const Main = ({
 };
 
 Main.propTypes = {
-  city: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    coords: PropTypes.arrayOf(PropTypes.number).isRequired,
-    offers: PropTypes.arrayOf(PropTypes.shape({
-      picture: PropTypes.string.isRequired,
-      isPremium: PropTypes.bool.isRequired,
-      rate: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      type: PropTypes.oneOf([OfferType.APARTMENT, OfferType.HOTEL, OfferType.HOUSE, OfferType.ROOM]),
-      rating: PropTypes.number.isRequired,
-      isFavorite: PropTypes.bool.isRequired,
-    })),
-  }),
+  places: PropTypes.arrayOf(PropTypes.shape({
+    "bedrooms": PropTypes.number.isRequired,
+    "city": PropTypes.shape({
+      location: PropTypes.shape({
+        latitude: PropTypes.number.isRequired,
+        longitude: PropTypes.number.isRequired,
+        zoom: PropTypes.number.isRequired,
+      }),
+      name: PropTypes.string.isRequired,
+    }),
+    "description": PropTypes.string.isRequired,
+    "goods": PropTypes.arrayOf(PropTypes.string).isRequired,
+    "host": PropTypes.shape({
+      "avatar_url": PropTypes.string.isRequired,
+      "id": PropTypes.number.isRequired,
+      "is_pro": PropTypes.bool.isRequired,
+      "name": PropTypes.string.isRequired,
+    }),
+    "id": PropTypes.number.isRequired,
+    "images": PropTypes.arrayOf(PropTypes.string).isRequired,
+    "is_favorite": PropTypes.bool.isRequired,
+    "is_premium": PropTypes.bool.isRequired,
+    "location": PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired,
+    }),
+    "max_adults": PropTypes.number.isRequired,
+    "preview_image": PropTypes.string.isRequired,
+    "price": PropTypes.number.isRequired,
+    "rating": PropTypes.number.isRequired,
+    "title": PropTypes.string.isRequired,
+    "type": PropTypes.oneOf([OfferType.APARTMENT, OfferType.HOTEL, OfferType.HOUSE, OfferType.ROOM])
+  })),
+  activeCity: PropTypes.string.isRequired,
   onCardTitleClick: PropTypes.func.isRequired,
   onCityTabClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  city: state.cities.find((city) => city.name === state.activeCity),
+  places: getPlacesByCity(state),
+  activeCity: getActiveCity(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

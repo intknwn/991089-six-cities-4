@@ -1,13 +1,9 @@
-import React from "react";
-import {configure, mount} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-import {Main} from "./main.jsx";
+import {ActionType, Operation, reducer} from './data.js';
+import MockAdapter from "axios-mock-adapter";
+import {createAPI} from "../../api.js";
 
-configure({
-  adapter: new Adapter(),
-});
+const api = createAPI(() => {});
 
-const activeCity = `Brussels`;
 const places = [{
   "bedrooms": 3,
   "city": {
@@ -83,23 +79,42 @@ const places = [{
   "type": `house`
 }];
 
-it(`Card title click`, () => {
-  const onCardTitleClick = jest.fn();
 
-  const main = mount(
-      <Main
-        places={places}
-        activeCity={activeCity}
-        onCardTitleClick={onCardTitleClick}
-        onCityTabClick={() => {}}
-      />
-  );
-
-  const cardTitles = main.find(`.place-card__name a`);
-
-  cardTitles.forEach((title) => {
-    title.simulate(`click`);
+it(`Reducer without additional parameters should return initial state`, () => {
+  expect(reducer(void 0, {})).toEqual({
+    places: [],
   });
-
-  expect(onCardTitleClick.mock.calls.length).toBe(places.length);
 });
+
+it(`Reducer should update state on places load`, () => {
+  expect(reducer({
+    places: [],
+  }, {
+    type: ActionType.LOAD_PLACES,
+    payload: places,
+  })).toEqual({
+    places,
+  });
+});
+
+describe(`Operation works correctly`, () => {
+  it(`Should make a correct API call to /hotels`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const placesLoader = Operation.loadPlaces();
+
+    apiMock
+      .onGet(`/hotels`)
+      .reply(200, [{fake: true}]);
+
+    return placesLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_PLACES,
+          payload: [{fake: true}],
+        });
+      });
+  });
+});
+

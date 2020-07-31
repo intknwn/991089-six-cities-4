@@ -2,20 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {citiesNames} from '../../const.js';
 
-const CitiesList = ({city, onActiveItemSet}) => {
+const CitiesList = ({activeCity, onActiveItemSet}) => {
 
   return (
     <ul className="locations__list tabs__list">
-      {citiesNames.map((name) => {
-        const isActive = name === city;
+      {citiesNames.map((cityName) => {
+        const isActive = cityName === activeCity;
 
         return (
-          <li className="locations__item" key={name}>
+          <li className="locations__item" key={cityName}>
             <a
               className={`locations__item-link tabs__item ${isActive && `tabs__item--active`}`}
-              onClick={() => onActiveItemSet(name)}
+              onClick={() => onActiveItemSet(cityName)}
               href="#">
-              <span>{name}</span>
+              <span>{cityName}</span>
             </a>
           </li>
         );
@@ -26,7 +26,7 @@ const CitiesList = ({city, onActiveItemSet}) => {
 };
 
 CitiesList.propTypes = {
-  city: PropTypes.string.isRequired,
+  activeCity: PropTypes.string.isRequired,
   onActiveItemSet: PropTypes.func.isRequired
 };
 

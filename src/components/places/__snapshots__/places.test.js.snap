@@ -22,7 +22,7 @@ exports[`Places render 1`] = `
          
         places
          to stay in 
-        Paris
+        Brussels
       </b>
       <form
         action="#"
@@ -87,13 +87,6 @@ exports[`Places render 1`] = `
           onMouseLeave={[Function]}
         >
           <div
-            className="place-card__mark"
-          >
-            <span>
-              Premium
-            </span>
-          </div>
-          <div
             className="cities__image-wrapper place-card__image-wrapper"
           >
             <a
@@ -103,7 +96,7 @@ exports[`Places render 1`] = `
                 alt="Place image"
                 className="place-card__image"
                 height="200"
-                src="img/apartment-01.jpg"
+                src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/20.jpg"
                 width="260"
               />
             </a>
@@ -121,7 +114,7 @@ exports[`Places render 1`] = `
                   className="place-card__price-value"
                 >
                   €
-                  120
+                  227
                 </b>
                 <span
                   className="place-card__price-text"
@@ -158,7 +151,7 @@ exports[`Places render 1`] = `
                 <span
                   style={
                     Object {
-                      "width": "60%",
+                      "width": "40%",
                     }
                   }
                 />
@@ -176,13 +169,13 @@ exports[`Places render 1`] = `
                 href="#"
                 onClick={[Function]}
               >
-                Charming & cozy studio
+                Nice, cozy, warm big bed apartment
               </a>
             </h2>
             <p
               className="place-card__type"
             >
-              apartment
+              room
             </p>
           </div>
         </article>
@@ -192,13 +185,6 @@ exports[`Places render 1`] = `
           onMouseLeave={[Function]}
         >
           <div
-            className="place-card__mark"
-          >
-            <span>
-              Premium
-            </span>
-          </div>
-          <div
             className="cities__image-wrapper place-card__image-wrapper"
           >
             <a
@@ -208,7 +194,7 @@ exports[`Places render 1`] = `
                 alt="Place image"
                 className="place-card__image"
                 height="200"
-                src="img/apartment-01.jpg"
+                src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/8.jpg"
                 width="260"
               />
             </a>
@@ -226,7 +212,7 @@ exports[`Places render 1`] = `
                   className="place-card__price-value"
                 >
                   €
-                  120
+                  327
                 </b>
                 <span
                   className="place-card__price-text"
@@ -281,13 +267,13 @@ exports[`Places render 1`] = `
                 href="#"
                 onClick={[Function]}
               >
-                Appartement proche du belvédère de Paris
+                The house among olive
               </a>
             </h2>
             <p
               className="place-card__type"
             >
-              apartment
+              house
             </p>
           </div>
         </article>

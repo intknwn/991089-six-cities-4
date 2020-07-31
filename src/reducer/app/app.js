@@ -1,21 +1,25 @@
-import {extend} from "./utils.js";
-import {cities} from './mocks/cities.js';
-import {citiesNames} from './const.js';
+import {extend} from "../../utils.js";
+import {citiesNames} from '../../const.js';
 
 const initialState = {
-  cities,
   activeCity: citiesNames[0],
+  error: null,
 };
 
 const ActionType = {
   SET_CITY: `SET_CITY`,
+  CATCH_ERROR: `CATCH_ERROR`,
 };
 
 const ActionCreator = {
   setCity: (cityName) => ({
     type: ActionType.SET_CITY,
     payload: cityName,
-  })
+  }),
+  catchError: (err) => ({
+    type: ActionType.CATCH_ERROR,
+    payload: err,
+  }),
 };
 
 const reducer = (state = initialState, action) => {
@@ -23,6 +27,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.SET_CITY:
       return extend(state, {
         activeCity: action.payload,
+      });
+    case ActionType.CATCH_ERROR:
+      return extend(state, {
+        error: action.payload
       });
   }
 

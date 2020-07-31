@@ -7,7 +7,7 @@ const cityName = `Paris`;
 it(`NoPlaces render`, () => {
   const tree = renderer.create(
       <NoPlaces
-        cityName={cityName}
+        activeCity={cityName}
       />
   ).toJSON();
 

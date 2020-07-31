@@ -7,7 +7,7 @@ const city = `Paris`;
 it(`CitiesList render`, () => {
   const tree = renderer
     .create(<CitiesList
-      city={city}
+      activeCity={city}
       onActiveItemSet={() => {}}
     />)
     .toJSON();
