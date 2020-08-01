@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PlaceCard from '../place-card/place-card.jsx';
-import {OfferType} from '../../const.js';
+import {placePropTypes} from '../../const.js';
 
 const PlacesList = ({places, onActiveItemSet, onCardTitleClick}) => {
   return (
@@ -9,8 +9,8 @@ const PlacesList = ({places, onActiveItemSet, onCardTitleClick}) => {
       {places.map((place) => {
         return (
           <PlaceCard
-            key={place.title}
-            placeDetails={place}
+            key={place.id}
+            place={place}
             onActiveItemSet={onActiveItemSet}
             onCardTitleClick={onCardTitleClick}
           />
@@ -21,15 +21,7 @@ const PlacesList = ({places, onActiveItemSet, onCardTitleClick}) => {
 };
 
 PlacesList.propTypes = {
-  places: PropTypes.arrayOf(PropTypes.shape({
-    picture: PropTypes.string.isRequired,
-    isPremium: PropTypes.bool.isRequired,
-    rate: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    type: PropTypes.oneOf([OfferType.APARTMENT, OfferType.HOTEL, OfferType.HOUSE, OfferType.ROOM]),
-    rating: PropTypes.number.isRequired,
-    isFavorite: PropTypes.bool.isRequired,
-  })),
+  places: PropTypes.arrayOf(placePropTypes),
   onActiveItemSet: PropTypes.func.isRequired,
   onCardTitleClick: PropTypes.func.isRequired
 };

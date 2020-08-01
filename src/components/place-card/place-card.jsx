@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {OfferType} from '../../const.js';
+import {placePropTypes} from '../../const.js';
 
 const getRatingWidth = (userRating) => {
   return {
@@ -8,32 +8,32 @@ const getRatingWidth = (userRating) => {
   };
 };
 
-const PlaceCard = ({placeDetails, onActiveItemSet, onCardTitleClick}) => {
+const PlaceCard = ({place, onActiveItemSet, onCardTitleClick}) => {
   const {
-    picture,
-    isPremium,
-    rate,
-    title,
-    type,
+    is_premium: isPremium,
+    preview_image: image,
     rating,
-    isFavorite,
-  } = placeDetails;
+    price,
+    is_favorite: isFavorite,
+    title,
+    type
+  } = place;
 
   return (
     <article className="cities__place-card place-card"
-      onMouseEnter={() => onActiveItemSet(placeDetails)}
+      onMouseEnter={() => onActiveItemSet(place)}
       onMouseLeave={() => onActiveItemSet(null)}
     >
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
-          <img className="place-card__image" src={picture} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={image} width="260" height="200" alt="Place image" />
         </a>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{rate}</b>
+            <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button className={`place-card__bookmark-button ${isFavorite ? `place-card__bookmark-button--active` : ``} button`} type="button">
@@ -59,15 +59,7 @@ const PlaceCard = ({placeDetails, onActiveItemSet, onCardTitleClick}) => {
 };
 
 PlaceCard.propTypes = {
-  placeDetails: PropTypes.shape({
-    picture: PropTypes.string.isRequired,
-    isPremium: PropTypes.bool.isRequired,
-    rate: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    type: PropTypes.oneOf([OfferType.APARTMENT, OfferType.HOTEL, OfferType.HOUSE, OfferType.ROOM]),
-    rating: PropTypes.number.isRequired,
-    isFavorite: PropTypes.bool.isRequired,
-  }),
+  place: placePropTypes,
   onActiveItemSet: PropTypes.func.isRequired,
   onCardTitleClick: PropTypes.func.isRequired,
 };

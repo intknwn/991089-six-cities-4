@@ -1,14 +1,11 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import App from './app.jsx';
-import {Provider} from "react-redux";
-import configureStore from "redux-mock-store";
-import NameSpace from "../../reducer/name-space.js";
+import {ActionType, Operation, reducer} from './data.js';
+import {ActionType as AppActionType} from '../app/app.js';
+import MockAdapter from "axios-mock-adapter";
+import {createAPI} from "../../api.js";
+import {getCitiesNames} from "../../utils.js";
 
-const mockStore = configureStore([]);
+const api = createAPI(() => {});
 
-const cities = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
-const activeCity = `Brussels`;
 const places = [{
   "bedrooms": 3,
   "city": {
@@ -84,26 +81,65 @@ const places = [{
   "type": `house`
 }];
 
-it(`render App`, () => {
-  const store = mockStore({
-    [NameSpace.DATA]: {
-      places,
-      cities,
-    },
-    [NameSpace.APP]: {
-      activeCity
-    },
+
+it(`Reducer without additional parameters should return initial state`, () => {
+  expect(reducer(void 0, {})).toEqual({
+    places: [],
+    cities: [],
   });
-
-  const tree = renderer
-    .create(
-        <Provider store={store}>
-          <App />
-        </Provider>,
-        {
-          createNodeMock: () => document.createElement(`section`)
-        })
-    .toJSON();
-
-  expect(tree).toMatchSnapshot();
 });
+
+it(`Reducer should update state on places load`, () => {
+  expect(reducer({
+    places: [],
+  }, {
+    type: ActionType.LOAD_PLACES,
+    payload: places,
+  })).toEqual({
+    places,
+  });
+});
+
+it(`Reducer should update cities on places load`, () => {
+  const cities = getCitiesNames(places);
+
+  expect(reducer({
+    cities: [],
+  }, {
+    type: ActionType.SET_CITIES,
+    payload: cities,
+  })).toEqual({
+    cities,
+  });
+});
+
+describe(`Operation works correctly`, () => {
+  it(`Should make a correct API call to /hotels`, function () {
+    const cities = getCitiesNames(places);
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const placesLoader = Operation.loadPlaces();
+
+    apiMock
+      .onGet(`/hotels`)
+      .reply(200, places);
+
+    return placesLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(3);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_PLACES,
+          payload: places,
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
+          type: ActionType.SET_CITIES,
+          payload: cities,
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(3, {
+          type: AppActionType.SET_CITY,
+          payload: cities[0],
+        });
+      });
+  });
+});
+

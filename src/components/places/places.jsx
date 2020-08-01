@@ -2,20 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PlacesList from '../places-list/places-list.jsx';
 import Map from '../map/map.jsx';
-import {OfferType} from '../../const.js';
+import {placePropTypes} from '../../const.js';
 import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
 
 const PlacesListWrapped = withActiveItem(PlacesList);
 
-const Places = ({city, onCardTitleClick}) => {
-  const {offers, coords, name: cityName} = city;
+const Places = ({places, activeCity, onCardTitleClick}) => {
 
   return (
     <div className="cities">
       <div className="cities__places-container container">
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
-          <b className="places__found">{offers.length} {offers.length === 1 ? `place` : `places`} to stay in {cityName}</b>
+          <b className="places__found">{places.length} {places.length === 1 ? `place` : `places`} to stay in {activeCity}</b>
           <form className="places__sorting" action="#" method="get">
             <span className="places__sorting-caption">Sort by</span>
             <span className="places__sorting-type" tabIndex={0}>
@@ -40,15 +39,14 @@ const Places = ({city, onCardTitleClick}) => {
       */}
           </form>
           {<PlacesListWrapped
-            places={offers}
+            places={places}
             onActiveItemSet={() => {}}
             onCardTitleClick={onCardTitleClick}
           />}
         </section>
         <div className="cities__right-section">
           <Map
-            cityCoords={coords}
-            places={offers}
+            places={places}
           />
         </div>
       </div>
@@ -57,19 +55,8 @@ const Places = ({city, onCardTitleClick}) => {
 };
 
 Places.propTypes = {
-  city: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    coords: PropTypes.arrayOf(PropTypes.number).isRequired,
-    offers: PropTypes.arrayOf(PropTypes.shape({
-      picture: PropTypes.string.isRequired,
-      isPremium: PropTypes.bool.isRequired,
-      rate: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      type: PropTypes.oneOf([OfferType.APARTMENT, OfferType.HOTEL, OfferType.HOUSE, OfferType.ROOM]),
-      rating: PropTypes.number.isRequired,
-      isFavorite: PropTypes.bool.isRequired,
-    })),
-  }),
+  places: PropTypes.arrayOf(placePropTypes),
+  activeCity: PropTypes.string.isRequired,
   onCardTitleClick: PropTypes.func.isRequired,
 };
 
