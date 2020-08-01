@@ -2,6 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import {Main} from './main.jsx';
 
+const cities = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
 const activeCity = `Brussels`;
 const places = [{
   "bedrooms": 3,
@@ -82,6 +83,7 @@ it(`render Main`, () => {
   const tree = renderer
     .create(<Main
       places={places}
+      cities={cities}
       activeCity={activeCity}
       onCardTitleClick={() => {}}
       onCityTabClick={() => {}}

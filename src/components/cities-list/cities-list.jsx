@@ -1,18 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {citiesNames} from '../../const.js';
 
-const CitiesList = ({activeCity, onActiveItemSet}) => {
+const CitiesList = ({cities, activeCity, onActiveItemSet}) => {
 
   return (
     <ul className="locations__list tabs__list">
-      {citiesNames.map((cityName) => {
+      {cities.map((cityName) => {
         const isActive = cityName === activeCity;
 
         return (
           <li className="locations__item" key={cityName}>
             <a
-              className={`locations__item-link tabs__item ${isActive && `tabs__item--active`}`}
+              className={`locations__item-link tabs__item ${isActive ? `tabs__item--active` : ``}`}
               onClick={() => onActiveItemSet(cityName)}
               href="#">
               <span>{cityName}</span>
@@ -26,6 +25,7 @@ const CitiesList = ({activeCity, onActiveItemSet}) => {
 };
 
 CitiesList.propTypes = {
+  cities: PropTypes.arrayOf(PropTypes.string).isRequired,
   activeCity: PropTypes.string.isRequired,
   onActiveItemSet: PropTypes.func.isRequired
 };

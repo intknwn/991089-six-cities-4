@@ -1,19 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {OfferType} from '../../const.js';
+import {placePropTypes} from '../../const.js';
 import CitiesList from '../cities-list/cities-list.jsx';
 import Places from '../places/places.jsx';
 import NoPlaces from '../no-places/no-places.jsx';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer/app/app.js';
 import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
-import {getPlacesByCity} from '../../reducer/data/selectors.js';
+import {getPlacesByCity, getCities} from '../../reducer/data/selectors.js';
 import {getActiveCity} from '../../reducer/app/selectors.js';
 
 const CitiesListWrapped = withActiveItem(CitiesList);
 
 const Main = ({
   places,
+  cities,
   activeCity,
   onCardTitleClick,
   onCityTabClick,
@@ -43,63 +44,32 @@ const Main = ({
           </div>
         </div>
       </header>
-      <main className={`page__main page__main--index ${places.length === 0 ? `page__main--index-empty` : ``}`}>
+      <main className={`page__main page__main--index ${places.length ? `` : `page__main--index-empty`}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
             <CitiesListWrapped
+              cities={cities}
               activeCity={activeCity}
               onActiveItemSet={onCityTabClick}
             />
           </section>
         </div>
-        {places.length === 0 ?
-          <NoPlaces activeCity={activeCity}/> :
+        {places.length ?
           <Places
             places={places}
             activeCity={activeCity}
             onCardTitleClick={onCardTitleClick}
-          />}
+          /> :
+          <NoPlaces activeCity={activeCity}/>}
       </main>
     </div>
   );
 };
 
 Main.propTypes = {
-  places: PropTypes.arrayOf(PropTypes.shape({
-    "bedrooms": PropTypes.number.isRequired,
-    "city": PropTypes.shape({
-      location: PropTypes.shape({
-        latitude: PropTypes.number.isRequired,
-        longitude: PropTypes.number.isRequired,
-        zoom: PropTypes.number.isRequired,
-      }),
-      name: PropTypes.string.isRequired,
-    }),
-    "description": PropTypes.string.isRequired,
-    "goods": PropTypes.arrayOf(PropTypes.string).isRequired,
-    "host": PropTypes.shape({
-      "avatar_url": PropTypes.string.isRequired,
-      "id": PropTypes.number.isRequired,
-      "is_pro": PropTypes.bool.isRequired,
-      "name": PropTypes.string.isRequired,
-    }),
-    "id": PropTypes.number.isRequired,
-    "images": PropTypes.arrayOf(PropTypes.string).isRequired,
-    "is_favorite": PropTypes.bool.isRequired,
-    "is_premium": PropTypes.bool.isRequired,
-    "location": PropTypes.shape({
-      latitude: PropTypes.number.isRequired,
-      longitude: PropTypes.number.isRequired,
-      zoom: PropTypes.number.isRequired,
-    }),
-    "max_adults": PropTypes.number.isRequired,
-    "preview_image": PropTypes.string.isRequired,
-    "price": PropTypes.number.isRequired,
-    "rating": PropTypes.number.isRequired,
-    "title": PropTypes.string.isRequired,
-    "type": PropTypes.oneOf([OfferType.APARTMENT, OfferType.HOTEL, OfferType.HOUSE, OfferType.ROOM])
-  })),
+  places: PropTypes.arrayOf(placePropTypes),
+  cities: PropTypes.arrayOf(PropTypes.string),
   activeCity: PropTypes.string.isRequired,
   onCardTitleClick: PropTypes.func.isRequired,
   onCityTabClick: PropTypes.func.isRequired,
@@ -107,6 +77,7 @@ Main.propTypes = {
 
 const mapStateToProps = (state) => ({
   places: getPlacesByCity(state),
+  cities: getCities(state),
   activeCity: getActiveCity(state),
 });
 

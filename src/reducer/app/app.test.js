@@ -3,7 +3,7 @@ import {citiesNames} from '../../const.js';
 
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
-    activeCity: citiesNames[0],
+    activeCity: ``,
     error: null
   });
 });

@@ -6,6 +6,10 @@ export const getPlaces = (state) => {
   return state[NameSpace.DATA].places;
 };
 
+export const getCities = (state) => {
+  return state[NameSpace.DATA].cities;
+};
+
 export const getPlacesByCity = createSelector(
     getPlaces,
     getActiveCity,

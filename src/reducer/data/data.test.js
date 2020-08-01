@@ -1,6 +1,8 @@
 import {ActionType, Operation, reducer} from './data.js';
+import {ActionType as AppActionType} from '../app/app.js';
 import MockAdapter from "axios-mock-adapter";
 import {createAPI} from "../../api.js";
+import {getCitiesNames} from "../../utils.js";
 
 const api = createAPI(() => {});
 
@@ -83,6 +85,7 @@ const places = [{
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
     places: [],
+    cities: [],
   });
 });
 
@@ -97,22 +100,44 @@ it(`Reducer should update state on places load`, () => {
   });
 });
 
+it(`Reducer should update cities on places load`, () => {
+  const cities = getCitiesNames(places);
+
+  expect(reducer({
+    cities: [],
+  }, {
+    type: ActionType.SET_CITIES,
+    payload: cities,
+  })).toEqual({
+    cities,
+  });
+});
+
 describe(`Operation works correctly`, () => {
   it(`Should make a correct API call to /hotels`, function () {
+    const cities = getCitiesNames(places);
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const placesLoader = Operation.loadPlaces();
 
     apiMock
       .onGet(`/hotels`)
-      .reply(200, [{fake: true}]);
+      .reply(200, places);
 
     return placesLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledTimes(3);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_PLACES,
-          payload: [{fake: true}],
+          payload: places,
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
+          type: ActionType.SET_CITIES,
+          payload: cities,
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(3, {
+          type: AppActionType.SET_CITY,
+          payload: cities[0],
         });
       });
   });

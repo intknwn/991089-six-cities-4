@@ -1,8 +1,7 @@
 import {extend} from "../../utils.js";
-import {citiesNames} from '../../const.js';
 
 const initialState = {
-  activeCity: citiesNames[0],
+  activeCity: ``,
   error: null,
 };
 

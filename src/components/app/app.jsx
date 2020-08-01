@@ -26,4 +26,4 @@ App.propTypes = {
   error: PropTypes.string,
 };
 
-export default connect(mapStateToProps, null)(App);
+export default connect(mapStateToProps)(App);

@@ -7,6 +7,7 @@ configure({
   adapter: new Adapter(),
 });
 
+const cities = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
 const activeCity = `Brussels`;
 const places = [{
   "bedrooms": 3,
@@ -89,6 +90,7 @@ it(`Card title click`, () => {
   const main = mount(
       <Main
         places={places}
+        cities={cities}
         activeCity={activeCity}
         onCardTitleClick={onCardTitleClick}
         onCityTabClick={() => {}}

@@ -7,6 +7,7 @@ import NameSpace from "../../reducer/name-space.js";
 
 const mockStore = configureStore([]);
 
+const cities = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
 const activeCity = `Brussels`;
 const places = [{
   "bedrooms": 3,
@@ -87,6 +88,7 @@ it(`render App`, () => {
   const store = mockStore({
     [NameSpace.DATA]: {
       places,
+      cities,
     },
     [NameSpace.APP]: {
       activeCity
