@@ -1,12 +1,13 @@
 import React from 'react';
 import Main from '../main/main.jsx';
 import Notifications from 'react-notify-toast';
-import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import SignIn from '../sign-in/sign-in.jsx';
+import {Screen} from '../../const.js';
 import {Operation as UserOperation} from "../../reducer/user/user.js";
 import {getScreen} from "../../reducer/app/selectors.js";
-import {Screen} from '../../const.js';
-import SignIn from '../sign-in/sign-in.jsx';
+
 
 const App = ({screen, onSubmit}) => {
   return (

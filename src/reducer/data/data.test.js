@@ -1,8 +1,9 @@
+import MockAdapter from "axios-mock-adapter";
+import {getCitiesNames} from "../../utils.js";
 import {ActionType, Operation, reducer} from './data.js';
 import {ActionType as AppActionType} from '../app/app.js';
-import MockAdapter from "axios-mock-adapter";
 import {createAPI} from "../../api.js";
-import {getCitiesNames} from "../../utils.js";
+
 
 const api = createAPI(() => {});
 

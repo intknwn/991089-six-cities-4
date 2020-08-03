@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {placePropTypes, userPropTypes} from '../../const.js';
+import {connect} from 'react-redux';
+import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
 import CitiesList from '../cities-list/cities-list.jsx';
 import Places from '../places/places.jsx';
 import NoPlaces from '../no-places/no-places.jsx';
-import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer/app/app.js';
-import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
+import {placePropTypes, userPropTypes} from '../../const.js';
+import {Screen} from '../../const.js';
 import {getPlacesByCity, getCities} from '../../reducer/data/selectors.js';
 import {getActiveCity} from '../../reducer/app/selectors.js';
+import {ActionCreator} from '../../reducer/app/app.js';
 import {getUser} from '../../reducer/user/selectors.js';
-import {Screen} from '../../const.js';
 
 const CitiesListWrapped = withActiveItem(CitiesList);
 
@@ -37,7 +37,7 @@ const Main = ({
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#" onClick={user ? () => {} : () => renderSignInScreen()}>
+                  <a className="header__nav-link header__nav-link--profile" href="#" onClick={user ? null : renderSignInScreen}>
                     <div
                       style={user ? {
                         backgroundImage: user.avatar_url && `url(https://4.react.pages.academy/six-cities${user.avatar_url})`,
