@@ -1,12 +1,19 @@
 import React from "react";
-import {configure, mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
+import {configure, mount} from "enzyme";
 import {Main} from "./main.jsx";
 
 configure({
   adapter: new Adapter(),
 });
 
+const user = {
+  "avatar_url": `img/1.png`,
+  "email": `Oliver.conner@gmail.com`,
+  "id": 1,
+  "is_pro": false,
+  "name": `Oliver.conner`,
+};
 const cities = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
 const activeCity = `Brussels`;
 const places = [{
@@ -91,7 +98,9 @@ it(`Card title click`, () => {
       <Main
         places={places}
         cities={cities}
+        user={user}
         activeCity={activeCity}
+        renderSignInScreen={() => {}}
         onCardTitleClick={onCardTitleClick}
         onCityTabClick={() => {}}
       />

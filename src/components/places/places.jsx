@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
 import PlacesList from '../places-list/places-list.jsx';
 import Map from '../map/map.jsx';
 import {placePropTypes} from '../../const.js';
-import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
+
 
 const PlacesListWrapped = withActiveItem(PlacesList);
 

@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {placePropTypes} from '../../const.js';
+import {connect} from 'react-redux';
+import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
 import CitiesList from '../cities-list/cities-list.jsx';
 import Places from '../places/places.jsx';
 import NoPlaces from '../no-places/no-places.jsx';
-import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer/app/app.js';
-import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
+import {Screen, placePropTypes, userPropTypes} from '../../const.js';
 import {getPlacesByCity, getCities} from '../../reducer/data/selectors.js';
 import {getActiveCity} from '../../reducer/app/selectors.js';
+import {ActionCreator} from '../../reducer/app/app.js';
+import {getUser} from '../../reducer/user/selectors.js';
 
 const CitiesListWrapped = withActiveItem(CitiesList);
 
@@ -16,6 +17,8 @@ const Main = ({
   places,
   cities,
   activeCity,
+  user,
+  renderSignInScreen,
   onCardTitleClick,
   onCityTabClick,
 }) => {
@@ -33,10 +36,15 @@ const Main = ({
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
+                  <a className="header__nav-link header__nav-link--profile" href="#" onClick={user ? null : renderSignInScreen}>
+                    <div
+                      style={user ? {
+                        backgroundImage: user.avatar_url && `url(https://4.react.pages.academy/six-cities${user.avatar_url})`,
+                      } : {}}
+                      className="header__avatar-wrapper user__avatar-wrapper"
+                    >
                     </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    <span className="header__user-name user__name">{user ? user.email : `Sign In`}</span>
                   </a>
                 </li>
               </ul>
@@ -71,6 +79,8 @@ Main.propTypes = {
   places: PropTypes.arrayOf(placePropTypes),
   cities: PropTypes.arrayOf(PropTypes.string),
   activeCity: PropTypes.string.isRequired,
+  user: userPropTypes,
+  renderSignInScreen: PropTypes.func.isRequired,
   onCardTitleClick: PropTypes.func.isRequired,
   onCityTabClick: PropTypes.func.isRequired,
 };
@@ -79,11 +89,15 @@ const mapStateToProps = (state) => ({
   places: getPlacesByCity(state),
   cities: getCities(state),
   activeCity: getActiveCity(state),
+  user: getUser(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onCityTabClick(city) {
     dispatch(ActionCreator.setCity(city));
+  },
+  renderSignInScreen() {
+    dispatch(ActionCreator.setScreen(Screen.SIGN_IN));
   }
 });
 

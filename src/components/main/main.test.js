@@ -2,6 +2,13 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import {Main} from './main.jsx';
 
+const user = {
+  "avatar_url": `img/1.png`,
+  "email": `Oliver.conner@gmail.com`,
+  "id": 1,
+  "is_pro": false,
+  "name": `Oliver.conner`,
+};
 const cities = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
 const activeCity = `Brussels`;
 const places = [{
@@ -84,7 +91,9 @@ it(`render Main`, () => {
     .create(<Main
       places={places}
       cities={cities}
+      user={user}
       activeCity={activeCity}
+      renderSignInScreen={() => {}}
       onCardTitleClick={() => {}}
       onCityTabClick={() => {}}
     />,

@@ -1,9 +1,12 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import configureStore from 'redux-mock-store';
+import {Provider} from 'react-redux';
 import App from './app.jsx';
-import {Provider} from "react-redux";
-import configureStore from "redux-mock-store";
-import NameSpace from "../../reducer/name-space.js";
+import {Screen} from '../../const.js';
+import NameSpace from '../../reducer/name-space.js';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
+
 
 const mockStore = configureStore([]);
 
@@ -91,7 +94,11 @@ it(`render App`, () => {
       cities,
     },
     [NameSpace.APP]: {
-      activeCity
+      activeCity,
+      screen: Screen.SIGN_IN,
+    },
+    [NameSpace.USER]: {
+      authorizationStatus: AuthorizationStatus.NO_AUTH,
     },
   });
 

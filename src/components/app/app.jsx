@@ -1,29 +1,40 @@
 import React from 'react';
-import Main from '../main/main.jsx';
-import Notifications, {notify} from 'react-notify-toast';
-import {connect} from 'react-redux';
+import Notifications from 'react-notify-toast';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import Main from '../main/main.jsx';
+import SignIn from '../sign-in/sign-in.jsx';
+import {Screen} from '../../const.js';
+import {Operation as UserOperation} from "../../reducer/user/user.js";
+import {getScreen} from "../../reducer/app/selectors.js";
 
-import {getError} from '../../reducer/app/selectors.js';
 
-const App = ({error}) => {
+const App = ({screen, onSubmit}) => {
   return (
     <React.Fragment>
       <Notifications />
-      {error && notify.show(error, `error`)}
-      <Main
-        onCardTitleClick={() => {}}
-      />
+      {screen === Screen.MAIN ?
+        <Main
+          onCardTitleClick={() => {}}
+        /> :
+        <SignIn onSubmit={onSubmit} />}
     </React.Fragment>
   );
 };
 
-const mapStateToProps = (state) => ({
-  error: getError(state)
-});
-
 App.propTypes = {
-  error: PropTypes.string,
+  screen: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(App);
+const mapStateToProps = (state) => ({
+  screen: getScreen(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onSubmit(authData) {
+    dispatch(UserOperation.login(authData));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -40,9 +40,15 @@ exports[`render Main 1`] = `
               <a
                 className="header__nav-link header__nav-link--profile"
                 href="#"
+                onClick={null}
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
+                  style={
+                    Object {
+                      "backgroundImage": "url(https://4.react.pages.academy/six-citiesimg/1.png)",
+                    }
+                  }
                 />
                 <span
                   className="header__user-name user__name"
