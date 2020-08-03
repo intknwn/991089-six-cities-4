@@ -1,5 +1,4 @@
-import {citiesNames} from '../../const.js';
-import {Screen} from '../../const.js';
+import {Screen, citiesNames} from '../../const.js';
 import {ActionType, ActionCreator, reducer} from './app.js';
 
 it(`Reducer without additional parameters should return initial state`, () => {

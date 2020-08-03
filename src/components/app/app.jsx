@@ -1,8 +1,8 @@
 import React from 'react';
-import Main from '../main/main.jsx';
 import Notifications from 'react-notify-toast';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import Main from '../main/main.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
 import {Screen} from '../../const.js';
 import {Operation as UserOperation} from "../../reducer/user/user.js";
