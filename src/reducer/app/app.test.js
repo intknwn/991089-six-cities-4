@@ -1,6 +1,6 @@
-import {ActionType, ActionCreator, reducer} from './app.js';
 import {citiesNames} from '../../const.js';
 import {Screen} from '../../const.js';
+import {ActionType, ActionCreator, reducer} from './app.js';
 
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({

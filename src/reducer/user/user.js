@@ -1,6 +1,6 @@
+import {Screen} from '../../const.js';
 import {extend} from '../../utils.js';
 import {ActionCreator as AppActionCreator} from '../app/app.js';
-import {Screen} from '../../const.js';
 
 const AuthorizationStatus = {
   AUTH: `AUTH`,
