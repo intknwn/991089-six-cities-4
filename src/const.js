@@ -44,3 +44,15 @@ export const placePropTypes = PropTypes.shape({
   "type": PropTypes.oneOf([OfferType.APARTMENT, OfferType.HOTEL, OfferType.HOUSE, OfferType.ROOM])
 });
 
+export const userPropTypes = PropTypes.shape({
+  "avatar_url": PropTypes.string.isRequired,
+  "email": PropTypes.string.isRequired,
+  "id": PropTypes.number.isRequired,
+  "is_pro": PropTypes.bool.isRequired,
+  "name": PropTypes.string.isRequired,
+});
+
+export const Screen = {
+  MAIN: `MAIN`,
+  SIGN_IN: `SIGN_IN`,
+};
