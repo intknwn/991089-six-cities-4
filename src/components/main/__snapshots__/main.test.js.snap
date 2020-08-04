@@ -39,8 +39,8 @@ exports[`render Main 1`] = `
             >
               <a
                 className="header__nav-link header__nav-link--profile"
-                href="#"
-                onClick={null}
+                href="/favorites"
+                onClick={[Function]}
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
@@ -283,6 +283,7 @@ exports[`render Main 1`] = `
                   </div>
                   <button
                     className="place-card__bookmark-button  button"
+                    onClick={[Function]}
                     type="button"
                   >
                     <svg
@@ -381,6 +382,7 @@ exports[`render Main 1`] = `
                   </div>
                   <button
                     className="place-card__bookmark-button  button"
+                    onClick={[Function]}
                     type="button"
                   >
                     <svg

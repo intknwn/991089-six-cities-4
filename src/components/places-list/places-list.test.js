@@ -1,7 +1,15 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import PlacesList from './places-list.jsx';
+import configureStore from 'redux-mock-store';
+import {Provider} from 'react-redux';
+import NameSpace from '../../reducer/name-space.js';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
 
+const mockStore = configureStore([]);
+
+const cities = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
+const activeCity = `Brussels`;
 const places = [{
   "bedrooms": 3,
   "city": {
@@ -78,12 +86,27 @@ const places = [{
 }];
 
 it(`PlaceCard render`, () => {
+  const store = mockStore({
+    [NameSpace.DATA]: {
+      places,
+      cities,
+    },
+    [NameSpace.APP]: {
+      activeCity,
+    },
+    [NameSpace.USER]: {
+      authorizationStatus: AuthorizationStatus.NO_AUTH,
+    },
+  });
+
   const tree = renderer.create(
-      <PlacesList
-        places={places}
-        onActiveItemSet={() => {}}
-        onCardTitleClick={() => {}}
-      />
+      <Provider store={store}>
+        <PlacesList
+          places={places}
+          onActiveItemSet={() => {}}
+          onCardTitleClick={() => {}}
+        />
+      </Provider>
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

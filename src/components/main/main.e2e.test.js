@@ -1,7 +1,15 @@
 import React from "react";
 import Adapter from "enzyme-adapter-react-16";
+import configureStore from 'redux-mock-store';
+import {Provider} from 'react-redux';
 import {configure, mount} from "enzyme";
+import {Router} from "react-router-dom";
 import {Main} from "./main.jsx";
+import NameSpace from '../../reducer/name-space.js';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
+import history from '../../history.js';
+
+const mockStore = configureStore([]);
 
 configure({
   adapter: new Adapter(),
@@ -92,18 +100,35 @@ const places = [{
 }];
 
 it(`Card title click`, () => {
+  const store = mockStore({
+    [NameSpace.DATA]: {
+      places,
+      cities,
+    },
+    [NameSpace.APP]: {
+      activeCity,
+    },
+    [NameSpace.USER]: {
+      authorizationStatus: AuthorizationStatus.NO_AUTH,
+    },
+  });
+
   const onCardTitleClick = jest.fn();
 
   const main = mount(
-      <Main
-        places={places}
-        cities={cities}
-        user={user}
-        activeCity={activeCity}
-        renderSignInScreen={() => {}}
-        onCardTitleClick={onCardTitleClick}
-        onCityTabClick={() => {}}
-      />
+      <Provider store={store}>
+        <Router history={history}>
+          <Main
+            places={places}
+            cities={cities}
+            user={user}
+            activeCity={activeCity}
+            renderSignInScreen={() => {}}
+            onCardTitleClick={onCardTitleClick}
+            onCityTabClick={() => {}}
+          />
+        </Router>
+      </Provider>
   );
 
   const cardTitles = main.find(`.place-card__name a`);

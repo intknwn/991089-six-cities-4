@@ -114,8 +114,19 @@ it(`Reducer should update cities on places load`, () => {
   });
 });
 
+it(`Reducer should update places on add to favorites`, () => {
+  expect(reducer({
+    places: [{"id": 1, "is_favorite": true}, {"id": 2, "is_favorite": false}, {"id": 2, "is_favorite": true}],
+  }, {
+    type: ActionType.UPDATE_PLACE,
+    payload: {"id": 2, "is_favorite": true},
+  })).toEqual({
+    places: [{"id": 1, "is_favorite": true}, {"id": 2, "is_favorite": true}, {"id": 2, "is_favorite": true}],
+  });
+});
+
 describe(`Operation works correctly`, () => {
-  it(`Should make a correct API call to /hotels`, function () {
+  it(`Should make a correct API call to /hotels`, () => {
     const cities = getCitiesNames(places);
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
@@ -142,5 +153,24 @@ describe(`Operation works correctly`, () => {
         });
       });
   });
-});
 
+  it(`Should make a correct API call to /favorite`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const favoriteSetter = Operation.setFavorite(1, true);
+
+    apiMock
+      .onPost(`/favorite/1/0`)
+      .reply(200, {"id": 1, "is_favorite": false});
+
+    return favoriteSetter(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.UPDATE_PLACE,
+          payload: {"id": 1, "is_favorite": false},
+        });
+      });
+  });
+})
+;

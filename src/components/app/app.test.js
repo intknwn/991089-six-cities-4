@@ -3,7 +3,6 @@ import renderer from 'react-test-renderer';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import App from './app.jsx';
-import {Screen} from '../../const.js';
 import NameSpace from '../../reducer/name-space.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
 
@@ -95,7 +94,6 @@ it(`render App`, () => {
     },
     [NameSpace.APP]: {
       activeCity,
-      screen: Screen.SIGN_IN,
     },
     [NameSpace.USER]: {
       authorizationStatus: AuthorizationStatus.NO_AUTH,

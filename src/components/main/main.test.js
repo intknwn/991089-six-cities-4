@@ -1,6 +1,14 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import configureStore from 'redux-mock-store';
+import {Provider} from 'react-redux';
+import {Router} from "react-router-dom";
 import {Main} from './main.jsx';
+import NameSpace from '../../reducer/name-space.js';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
+import history from '../../history.js';
+
+const mockStore = configureStore([]);
 
 const user = {
   "avatar_url": `img/1.png`,
@@ -87,19 +95,37 @@ const places = [{
 }];
 
 it(`render Main`, () => {
+  const store = mockStore({
+    [NameSpace.DATA]: {
+      places,
+      cities,
+    },
+    [NameSpace.APP]: {
+      activeCity,
+    },
+    [NameSpace.USER]: {
+      authorizationStatus: AuthorizationStatus.NO_AUTH,
+    },
+  });
+
   const tree = renderer
-    .create(<Main
-      places={places}
-      cities={cities}
-      user={user}
-      activeCity={activeCity}
-      renderSignInScreen={() => {}}
-      onCardTitleClick={() => {}}
-      onCityTabClick={() => {}}
-    />,
-    {
-      createNodeMock: () => document.createElement(`section`)
-    })
+    .create(
+        <Provider store={store}>
+          <Router history={history}>
+            <Main
+              places={places}
+              cities={cities}
+              user={user}
+              activeCity={activeCity}
+              renderSignInScreen={() => {}}
+              onCardTitleClick={() => {}}
+              onCityTabClick={() => {}}
+            />
+          </Router>
+        </Provider>,
+        {
+          createNodeMock: () => document.createElement(`section`)
+        })
     .toJSON();
 
   expect(tree).toMatchSnapshot();
