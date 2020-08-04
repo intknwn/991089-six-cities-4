@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
 import CitiesList from '../cities-list/cities-list.jsx';
 import Places from '../places/places.jsx';
 import NoPlaces from '../no-places/no-places.jsx';
-import {Screen, placePropTypes, userPropTypes} from '../../const.js';
+import {placePropTypes, userPropTypes, AppRoute} from '../../const.js';
 import {getPlacesByCity, getCities} from '../../reducer/data/selectors.js';
 import {getActiveCity} from '../../reducer/app/selectors.js';
 import {ActionCreator} from '../../reducer/app/app.js';
@@ -18,9 +19,8 @@ const Main = ({
   cities,
   activeCity,
   user,
-  renderSignInScreen,
-  onCardTitleClick,
   onCityTabClick,
+  onCardTitleClick = () => {},
 }) => {
 
   return (
@@ -36,7 +36,7 @@ const Main = ({
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#" onClick={user ? null : renderSignInScreen}>
+                  <Link className="header__nav-link header__nav-link--profile" to={AppRoute.FAVORITES}>
                     <div
                       style={user ? {
                         backgroundImage: user.avatar_url && `url(https://4.react.pages.academy/six-cities${user.avatar_url})`,
@@ -45,7 +45,7 @@ const Main = ({
                     >
                     </div>
                     <span className="header__user-name user__name">{user ? user.email : `Sign In`}</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -80,9 +80,8 @@ Main.propTypes = {
   cities: PropTypes.arrayOf(PropTypes.string),
   activeCity: PropTypes.string.isRequired,
   user: userPropTypes,
-  renderSignInScreen: PropTypes.func.isRequired,
-  onCardTitleClick: PropTypes.func.isRequired,
   onCityTabClick: PropTypes.func.isRequired,
+  onCardTitleClick: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -96,9 +95,6 @@ const mapDispatchToProps = (dispatch) => ({
   onCityTabClick(city) {
     dispatch(ActionCreator.setCity(city));
   },
-  renderSignInScreen() {
-    dispatch(ActionCreator.setScreen(Screen.SIGN_IN));
-  }
 });
 
 export {Main};

@@ -1,4 +1,4 @@
-import {extend, getCitiesNames} from '../../utils.js';
+import {extend, getCitiesNames, updatePlaces} from '../../utils.js';
 import {ActionCreator as AppActionCreator} from '../app/app.js';
 
 const initialState = {
@@ -9,6 +9,7 @@ const initialState = {
 const ActionType = {
   LOAD_PLACES: `LOAD_PLACES`,
   SET_CITIES: `SET_CITIES`,
+  UPDATE_PLACE: `UPDATE_PLACE`,
 };
 
 const ActionCreator = {
@@ -24,6 +25,12 @@ const ActionCreator = {
       payload: cities,
     };
   },
+  updatePlace: (place) => {
+    return {
+      type: ActionType.UPDATE_PLACE,
+      payload: place,
+    };
+  },
 };
 
 const Operation = {
@@ -37,6 +44,13 @@ const Operation = {
         dispatch(AppActionCreator.setCity(cities[0]));
       });
   },
+  setFavorite: (id, isFavorite) => (dispatch, getState, api) => {
+    const status = isFavorite ? 0 : 1;
+    return api.post(`/favorite/${id}/${status}`)
+      .then((response) => {
+        dispatch(ActionCreator.updatePlace(response.data));
+      });
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -48,6 +62,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.SET_CITIES:
       return extend(state, {
         cities: action.payload
+      });
+    case ActionType.UPDATE_PLACE:
+      return extend(state, {
+        places: updatePlaces(state.places, action.payload)
       });
   }
 

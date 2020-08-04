@@ -22,7 +22,7 @@ export const createAPI = (onError, onUnauthorized) => {
     const {response} = err;
 
     if (response.status === Error.UNAUTHORIZED) {
-      onUnauthorized();
+      onUnauthorized(response.config);
 
       throw err;
     }

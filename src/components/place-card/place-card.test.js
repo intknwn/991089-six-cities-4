@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import PlaceCard from './place-card.jsx';
+import {PlaceCard} from './place-card.jsx';
 
 const place = {
   "bedrooms": 3,
@@ -46,6 +46,7 @@ it(`PlaceCard render`, () => {
         place={place}
         onActiveItemSet={() => {}}
         onCardTitleClick={() => {}}
+        onAddToFavoritesButtonClick={() => {}}
       />
   ).toJSON();
 

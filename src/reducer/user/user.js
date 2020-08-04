@@ -1,6 +1,6 @@
-import {Screen} from '../../const.js';
 import {extend} from '../../utils.js';
-import {ActionCreator as AppActionCreator} from '../app/app.js';
+import history from '../../history.js';
+import {AppRoute} from '../../const.js';
 
 const AuthorizationStatus = {
   AUTH: `AUTH`,
@@ -52,7 +52,7 @@ const Operation = {
       .then((response) => {
         dispatch(ActionCreator.setUser(response.data));
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
-        dispatch(AppActionCreator.setScreen(Screen.MAIN));
+        history.push(AppRoute.ROOT);
       });
   },
 };

@@ -52,7 +52,8 @@ export const userPropTypes = PropTypes.shape({
   "name": PropTypes.string.isRequired,
 });
 
-export const Screen = {
-  MAIN: `MAIN`,
-  SIGN_IN: `SIGN_IN`,
+export const AppRoute = {
+  SIGN_IN: `/login`,
+  ROOT: `/`,
+  FAVORITES: `/favorites`,
 };
