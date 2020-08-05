@@ -87,6 +87,7 @@ it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
     places: [],
     cities: [],
+    favorites: [],
   });
 });
 
@@ -122,6 +123,17 @@ it(`Reducer should update places on add to favorites`, () => {
     payload: {"id": 2, "is_favorite": true},
   })).toEqual({
     places: [{"id": 1, "is_favorite": true}, {"id": 2, "is_favorite": true}, {"id": 2, "is_favorite": true}],
+  });
+});
+
+it(`Reducer should update state on favorites load`, () => {
+  expect(reducer({
+    favorites: [],
+  }, {
+    type: ActionType.GET_FAVORITES,
+    payload: places,
+  })).toEqual({
+    favorites: places,
   });
 });
 
@@ -165,7 +177,7 @@ describe(`Operation works correctly`, () => {
 
     return favoriteSetter(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.UPDATE_PLACE,
           payload: {"id": 1, "is_favorite": false},

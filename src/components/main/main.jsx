@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
 import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
 import CitiesList from '../cities-list/cities-list.jsx';
 import Places from '../places/places.jsx';
 import NoPlaces from '../no-places/no-places.jsx';
-import {placePropTypes, userPropTypes, AppRoute} from '../../const.js';
+import Header from '../../components/header/header.jsx';
+import {placePropTypes, userPropTypes} from '../../const.js';
 import {getPlacesByCity, getCities} from '../../reducer/data/selectors.js';
 import {getActiveCity} from '../../reducer/app/selectors.js';
 import {ActionCreator} from '../../reducer/app/app.js';
@@ -25,33 +25,7 @@ const Main = ({
 
   return (
     <div className="page page--gray page--main">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <a className="header__logo-link header__logo-link--active">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width={81} height={41} />
-              </a>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <Link className="header__nav-link header__nav-link--profile" to={AppRoute.FAVORITES}>
-                    <div
-                      style={user ? {
-                        backgroundImage: user.avatar_url && `url(https://4.react.pages.academy/six-cities${user.avatar_url})`,
-                      } : {}}
-                      className="header__avatar-wrapper user__avatar-wrapper"
-                    >
-                    </div>
-                    <span className="header__user-name user__name">{user ? user.email : `Sign In`}</span>
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header user={user}/>
       <main className={`page__main page__main--index ${places.length ? `` : `page__main--index-empty`}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">

@@ -44,6 +44,7 @@ it(`PlaceCard render`, () => {
   const tree = renderer.create(
       <PlaceCard
         place={place}
+        isFavoritesCard={false}
         onActiveItemSet={() => {}}
         onCardTitleClick={() => {}}
         onAddToFavoritesButtonClick={() => {}}

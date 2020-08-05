@@ -40,6 +40,7 @@ const Places = ({places, activeCity, onCardTitleClick}) => {
       */}
           </form>
           {<PlacesListWrapped
+            isFavoritesCard={false}
             places={places}
             onActiveItemSet={() => {}}
             onCardTitleClick={onCardTitleClick}

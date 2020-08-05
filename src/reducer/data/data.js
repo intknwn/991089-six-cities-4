@@ -4,12 +4,14 @@ import {ActionCreator as AppActionCreator} from '../app/app.js';
 const initialState = {
   places: [],
   cities: [],
+  favorites: [],
 };
 
 const ActionType = {
   LOAD_PLACES: `LOAD_PLACES`,
   SET_CITIES: `SET_CITIES`,
   UPDATE_PLACE: `UPDATE_PLACE`,
+  GET_FAVORITES: `GET_FAVORITES`,
 };
 
 const ActionCreator = {
@@ -31,6 +33,12 @@ const ActionCreator = {
       payload: place,
     };
   },
+  getFavorites: (favorites) => {
+    return {
+      type: ActionType.GET_FAVORITES,
+      payload: favorites,
+    };
+  },
 };
 
 const Operation = {
@@ -49,6 +57,13 @@ const Operation = {
     return api.post(`/favorite/${id}/${status}`)
       .then((response) => {
         dispatch(ActionCreator.updatePlace(response.data));
+        dispatch(Operation.getFavorites());
+      });
+  },
+  getFavorites: () => (dispatch, getState, api) => {
+    return api.get(`/favorite`)
+      .then((response) => {
+        dispatch(ActionCreator.getFavorites(response.data));
       });
   },
 };
@@ -66,6 +81,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.UPDATE_PLACE:
       return extend(state, {
         places: updatePlaces(state.places, action.payload)
+      });
+    case ActionType.GET_FAVORITES:
+      return extend(state, {
+        favorites: action.payload
       });
   }
 

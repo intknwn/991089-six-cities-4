@@ -17,3 +17,7 @@ export const getPlacesByCity = createSelector(
       return places.filter((place) => place.city.name === activeCity);
     }
 );
+
+export const getFavorites = (state) => {
+  return state[NameSpace.DATA].favorites;
+};
