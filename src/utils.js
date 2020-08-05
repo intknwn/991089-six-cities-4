@@ -7,6 +7,9 @@ export const getCitiesNames = (places) => Array.from(new Set(places.map((place) 
 
 export const updatePlaces = (places, newPlace) => {
   const index = places.findIndex((place) => place.id === newPlace.id);
+  const newPlaces = places.slice();
 
-  return [...places.slice(0, index), newPlace, ...places.slice(index + 1)];
+  newPlaces.splice(index, 1, newPlace);
+
+  return newPlaces;
 };

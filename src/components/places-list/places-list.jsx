@@ -9,6 +9,7 @@ const PlacesList = ({places, onActiveItemSet, onCardTitleClick}) => {
       {places.map((place) => {
         return (
           <PlaceCard
+            isFavoritesCard={false}
             key={place.id}
             place={place}
             onActiveItemSet={onActiveItemSet}

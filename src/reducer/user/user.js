@@ -1,6 +1,7 @@
 import {extend} from '../../utils.js';
 import history from '../../history.js';
 import {AppRoute} from '../../const.js';
+import {Operation as DataOperation} from '../data/data.js';
 
 const AuthorizationStatus = {
   AUTH: `AUTH`,
@@ -38,6 +39,7 @@ const Operation = {
       .then((response) => {
         dispatch(ActionCreator.setUser(response.data));
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+        dispatch(DataOperation.getFavorites());
       })
       .catch((err) => {
         throw err;
@@ -52,6 +54,7 @@ const Operation = {
       .then((response) => {
         dispatch(ActionCreator.setUser(response.data));
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+        dispatch(DataOperation.getFavorites());
         history.push(AppRoute.ROOT);
       });
   },

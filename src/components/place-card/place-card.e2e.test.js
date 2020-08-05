@@ -51,6 +51,7 @@ it(`Callback contains card element`, () => {
   const placeCard = shallow(
       <PlaceCard
         place={place}
+        isFavoritesCard={false}
         onActiveItemSet={onMouseEnter}
         onCardTitleClick={() => {}}
         onAddToFavoritesButtonClick={() => {}}

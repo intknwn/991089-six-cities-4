@@ -1,254 +1,115 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`render App 1`] = `
-Array [
-  <div
-    id="notification-wrapper"
-  />,
-  <div
-    className="page page--gray page--main"
+exports[`Header render 1`] = `
+<div
+  className="page "
+>
+  <header
+    className="header"
   >
-    <header
-      className="header"
+    <div
+      className="container"
     >
       <div
-        className="container"
+        className="header__wrapper"
       >
         <div
-          className="header__wrapper"
+          className="header__left"
         >
-          <div
-            className="header__left"
+          <a
+            className="header__logo-link header__logo-link--active"
+            href="/"
+            onClick={[Function]}
           >
-            <a
-              className="header__logo-link header__logo-link--active"
-              href="/"
-              onClick={[Function]}
-            >
-              <img
-                alt="6 cities logo"
-                className="header__logo"
-                height={41}
-                src="img/logo.svg"
-                width={81}
-              />
-            </a>
-          </div>
-          <nav
-            className="header__nav"
-          >
-            <ul
-              className="header__nav-list"
-            >
-              <li
-                className="header__nav-item user"
-              >
-                <a
-                  className="header__nav-link header__nav-link--profile"
-                  href="/favorites"
-                  onClick={[Function]}
-                >
-                  <div
-                    className="header__avatar-wrapper user__avatar-wrapper"
-                    style={Object {}}
-                  />
-                  <span
-                    className="header__user-name user__name"
-                  >
-                    Sign In
-                  </span>
-                </a>
-              </li>
-            </ul>
-          </nav>
+            <img
+              alt="6 cities logo"
+              className="header__logo"
+              height={41}
+              src="img/logo.svg"
+              width={81}
+            />
+          </a>
         </div>
-      </div>
-    </header>
-    <main
-      className="page__main page__main--index "
-    >
-      <h1
-        className="visually-hidden"
-      >
-        Cities
-      </h1>
-      <div
-        className="tabs"
-      >
-        <section
-          className="locations container"
+        <nav
+          className="header__nav"
         >
           <ul
-            className="locations__list tabs__list"
+            className="header__nav-list"
           >
             <li
-              className="locations__item"
+              className="header__nav-item user"
             >
               <a
-                className="locations__item-link tabs__item "
-                href="#"
+                className="header__nav-link header__nav-link--profile"
+                href="/favorites"
                 onClick={[Function]}
               >
-                <span>
-                  Paris
-                </span>
-              </a>
-            </li>
-            <li
-              className="locations__item"
-            >
-              <a
-                className="locations__item-link tabs__item "
-                href="#"
-                onClick={[Function]}
-              >
-                <span>
-                  Cologne
-                </span>
-              </a>
-            </li>
-            <li
-              className="locations__item"
-            >
-              <a
-                className="locations__item-link tabs__item tabs__item--active"
-                href="#"
-                onClick={[Function]}
-              >
-                <span>
-                  Brussels
-                </span>
-              </a>
-            </li>
-            <li
-              className="locations__item"
-            >
-              <a
-                className="locations__item-link tabs__item "
-                href="#"
-                onClick={[Function]}
-              >
-                <span>
-                  Amsterdam
-                </span>
-              </a>
-            </li>
-            <li
-              className="locations__item"
-            >
-              <a
-                className="locations__item-link tabs__item "
-                href="#"
-                onClick={[Function]}
-              >
-                <span>
-                  Hamburg
-                </span>
-              </a>
-            </li>
-            <li
-              className="locations__item"
-            >
-              <a
-                className="locations__item-link tabs__item "
-                href="#"
-                onClick={[Function]}
-              >
-                <span>
-                  Dusseldorf
+                <div
+                  className="header__avatar-wrapper user__avatar-wrapper"
+                  style={
+                    Object {
+                      "backgroundImage": "url(https://4.react.pages.academy/six-citiesimg/1.png)",
+                    }
+                  }
+                />
+                <span
+                  className="header__user-name user__name"
+                >
+                  Oliver.conner@gmail.com
                 </span>
               </a>
             </li>
           </ul>
-        </section>
+        </nav>
       </div>
-      <div
-        className="cities"
+    </div>
+  </header>
+  <main
+    className="\\"page__main page__main page__main--favorites "
+  >
+    <div
+      className="page__favorites-container container"
+    >
+      <section
+        className="favorites"
       >
-        <div
-          className="cities__places-container container"
+        <h1
+          className="favorites__title"
         >
-          <section
-            className="cities__places places"
+          Saved listing
+        </h1>
+        <ul
+          className="favorites__list"
+        >
+          <li
+            className="favorites__locations-items"
           >
-            <h2
-              className="visually-hidden"
-            >
-              Places
-            </h2>
-            <b
-              className="places__found"
-            >
-              2
-               
-              places
-               to stay in 
-              Brussels
-            </b>
-            <form
-              action="#"
-              className="places__sorting"
-              method="get"
-            >
-              <span
-                className="places__sorting-caption"
-              >
-                Sort by
-              </span>
-              <span
-                className="places__sorting-type"
-                tabIndex={0}
-              >
-                Popular
-                <svg
-                  className="places__sorting-arrow"
-                  height={4}
-                  width={7}
-                >
-                  <use
-                    xlinkHref="#icon-arrow-select"
-                  />
-                </svg>
-              </span>
-              <ul
-                className="places__options places__options--custom places__options--opened"
-              >
-                <li
-                  className="places__option places__option--active"
-                  tabIndex={0}
-                >
-                  Popular
-                </li>
-                <li
-                  className="places__option"
-                  tabIndex={0}
-                >
-                  Price: low to high
-                </li>
-                <li
-                  className="places__option"
-                  tabIndex={0}
-                >
-                  Price: high to low
-                </li>
-                <li
-                  className="places__option"
-                  tabIndex={0}
-                >
-                  Top rated first
-                </li>
-              </ul>
-            </form>
             <div
-              className="cities__places-list places__list tabs__content"
+              className="favorites__locations locations locations--current"
+            >
+              <div
+                className="locations__item"
+              >
+                <a
+                  className="locations__item-link"
+                  href="#"
+                >
+                  <span>
+                    Brussels
+                  </span>
+                </a>
+              </div>
+            </div>
+            <div
+              className="favorites__places"
             >
               <article
-                className="cities__place-card place-card"
+                className="favorites__card place-card"
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
               >
                 <div
-                  className="cities__image-wrapper place-card__image-wrapper"
+                  className="favorites__image-wrapper place-card__image-wrapper"
                 >
                   <a
                     href="#"
@@ -263,7 +124,7 @@ Array [
                   </a>
                 </div>
                 <div
-                  className="place-card__info"
+                  className="favorites__card-info"
                 >
                   <div
                     className="place-card__price-wrapper"
@@ -284,7 +145,7 @@ Array [
                       </span>
                     </div>
                     <button
-                      className="place-card__bookmark-button  button"
+                      className="place-card__bookmark-button place-card__bookmark-button--active button"
                       onClick={[Function]}
                       type="button"
                     >
@@ -342,12 +203,12 @@ Array [
                 </div>
               </article>
               <article
-                className="cities__place-card place-card"
+                className="favorites__card place-card"
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
               >
                 <div
-                  className="cities__image-wrapper place-card__image-wrapper"
+                  className="favorites__image-wrapper place-card__image-wrapper"
                 >
                   <a
                     href="#"
@@ -362,7 +223,7 @@ Array [
                   </a>
                 </div>
                 <div
-                  className="place-card__info"
+                  className="favorites__card-info"
                 >
                   <div
                     className="place-card__price-wrapper"
@@ -383,7 +244,7 @@ Array [
                       </span>
                     </div>
                     <button
-                      className="place-card__bookmark-button  button"
+                      className="place-card__bookmark-button place-card__bookmark-button--active button"
                       onClick={[Function]}
                       type="button"
                     >
@@ -441,17 +302,27 @@ Array [
                 </div>
               </article>
             </div>
-          </section>
-          <div
-            className="cities__right-section"
-          >
-            <section
-              className="cities__map map"
-            />
-          </div>
-        </div>
-      </div>
-    </main>
-  </div>,
-]
+          </li>
+        </ul>
+      </section>
+    </div>
+  </main>
+  <footer
+    className="footer container"
+  >
+    <a
+      className="footer__logo-link"
+      href="/"
+      onClick={[Function]}
+    >
+      <img
+        alt="6 cities logo"
+        className="footer__logo"
+        height={33}
+        src="img/logo.svg"
+        width={64}
+      />
+    </a>
+  </footer>
+</div>
 `;
