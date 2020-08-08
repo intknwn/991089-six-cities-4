@@ -1,6 +1,21 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import configureStore from 'redux-mock-store';
+import {Provider} from 'react-redux';
 import Map from './map.jsx';
+import NameSpace from '../../reducer/name-space.js';
+
+const mockStore = configureStore([]);
+
+const activeCity = {
+  location: {
+    latitude: 50.846557,
+    longitude: 4.351697,
+    zoom: 13
+  },
+  name: `Brussels`,
+};
+
 
 const places = [{
   "bedrooms": 3,
@@ -78,13 +93,27 @@ const places = [{
 }];
 
 it(`render Map`, () => {
+  const store = mockStore({
+    [NameSpace.DATA]: {
+      places,
+    },
+    [NameSpace.APP]: {
+      activeCity,
+      activePlace: places[0],
+    },
+  });
+
   const tree = renderer.create(
-      <Map
-        places={places}
-      />,
+      <Provider store={store}>
+        <Map
+          places={places}
+          currentPlace={places[0]}
+        />
+      </Provider>,
       {
         createNodeMock: () => document.createElement(`section`)
       }
+
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

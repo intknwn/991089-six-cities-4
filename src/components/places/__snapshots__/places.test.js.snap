@@ -32,10 +32,11 @@ exports[`Places render 1`] = `
         <span
           className="places__sorting-caption"
         >
-          Sort by
+          Sort by 
         </span>
         <span
           className="places__sorting-type"
+          onClick={[Function]}
           tabIndex={0}
         >
           Popular
@@ -50,28 +51,32 @@ exports[`Places render 1`] = `
           </svg>
         </span>
         <ul
-          className="places__options places__options--custom places__options--opened"
+          className="places__options places__options--custom "
         >
           <li
-            className="places__option places__option--active"
+            className="places__option"
+            onClick={[Function]}
             tabIndex={0}
           >
             Popular
           </li>
           <li
             className="places__option"
+            onClick={[Function]}
             tabIndex={0}
           >
             Price: low to high
           </li>
           <li
             className="places__option"
+            onClick={[Function]}
             tabIndex={0}
           >
             Price: high to low
           </li>
           <li
             className="places__option"
+            onClick={[Function]}
             tabIndex={0}
           >
             Top rated first
@@ -90,14 +95,15 @@ exports[`Places render 1`] = `
             className="cities__image-wrapper place-card__image-wrapper"
           >
             <a
-              href="#"
+              href="/place/1"
+              onClick={[Function]}
             >
               <img
                 alt="Place image"
                 className="place-card__image"
-                height="200"
+                height={200}
                 src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/20.jpg"
-                width="260"
+                width={260}
               />
             </a>
           </div>
@@ -167,7 +173,7 @@ exports[`Places render 1`] = `
               className="place-card__name"
             >
               <a
-                href="#"
+                href="/place/1"
                 onClick={[Function]}
               >
                 Nice, cozy, warm big bed apartment
@@ -189,14 +195,15 @@ exports[`Places render 1`] = `
             className="cities__image-wrapper place-card__image-wrapper"
           >
             <a
-              href="#"
+              href="/place/2"
+              onClick={[Function]}
             >
               <img
                 alt="Place image"
                 className="place-card__image"
-                height="200"
+                height={200}
                 src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/8.jpg"
-                width="260"
+                width={260}
               />
             </a>
           </div>
@@ -266,7 +273,7 @@ exports[`Places render 1`] = `
               className="place-card__name"
             >
               <a
-                href="#"
+                href="/place/2"
                 onClick={[Function]}
               >
                 The house among olive
@@ -286,7 +293,15 @@ exports[`Places render 1`] = `
     >
       <section
         className="cities__map map"
-      />
+      >
+        <div
+          style={
+            Object {
+              "height": "100%",
+            }
+          }
+        />
+      </section>
     </div>
   </div>
 </div>

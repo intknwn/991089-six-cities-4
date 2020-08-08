@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PlaceCard render 1`] = `
-<div
-  className="cities__places-list places__list tabs__content"
->
+Array [
   <article
     className="cities__place-card place-card"
     onMouseEnter={[Function]}
@@ -13,14 +11,15 @@ exports[`PlaceCard render 1`] = `
       className="cities__image-wrapper place-card__image-wrapper"
     >
       <a
-        href="#"
+        href="/place/1"
+        onClick={[Function]}
       >
         <img
           alt="Place image"
           className="place-card__image"
-          height="200"
+          height={200}
           src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/20.jpg"
-          width="260"
+          width={260}
         />
       </a>
     </div>
@@ -90,7 +89,7 @@ exports[`PlaceCard render 1`] = `
         className="place-card__name"
       >
         <a
-          href="#"
+          href="/place/1"
           onClick={[Function]}
         >
           Nice, cozy, warm big bed apartment
@@ -102,7 +101,7 @@ exports[`PlaceCard render 1`] = `
         room
       </p>
     </div>
-  </article>
+  </article>,
   <article
     className="cities__place-card place-card"
     onMouseEnter={[Function]}
@@ -112,14 +111,15 @@ exports[`PlaceCard render 1`] = `
       className="cities__image-wrapper place-card__image-wrapper"
     >
       <a
-        href="#"
+        href="/place/2"
+        onClick={[Function]}
       >
         <img
           alt="Place image"
           className="place-card__image"
-          height="200"
+          height={200}
           src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/8.jpg"
-          width="260"
+          width={260}
         />
       </a>
     </div>
@@ -189,7 +189,7 @@ exports[`PlaceCard render 1`] = `
         className="place-card__name"
       >
         <a
-          href="#"
+          href="/place/2"
           onClick={[Function]}
         >
           The house among olive
@@ -201,6 +201,6 @@ exports[`PlaceCard render 1`] = `
         house
       </p>
     </div>
-  </article>
-</div>
+  </article>,
+]
 `;

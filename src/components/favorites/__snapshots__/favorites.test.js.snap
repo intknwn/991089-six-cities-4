@@ -25,7 +25,7 @@ exports[`Header render 1`] = `
               alt="6 cities logo"
               className="header__logo"
               height={41}
-              src="img/logo.svg"
+              src="/img/logo.svg"
               width={81}
             />
           </a>
@@ -112,14 +112,15 @@ exports[`Header render 1`] = `
                   className="favorites__image-wrapper place-card__image-wrapper"
                 >
                   <a
-                    href="#"
+                    href="/place/1"
+                    onClick={[Function]}
                   >
                     <img
                       alt="Place image"
                       className="place-card__image"
-                      height="200"
+                      height={110}
                       src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/20.jpg"
-                      width="260"
+                      width={150}
                     />
                   </a>
                 </div>
@@ -189,7 +190,7 @@ exports[`Header render 1`] = `
                     className="place-card__name"
                   >
                     <a
-                      href="#"
+                      href="/place/1"
                       onClick={[Function]}
                     >
                       Nice, cozy, warm big bed apartment
@@ -211,14 +212,15 @@ exports[`Header render 1`] = `
                   className="favorites__image-wrapper place-card__image-wrapper"
                 >
                   <a
-                    href="#"
+                    href="/place/2"
+                    onClick={[Function]}
                   >
                     <img
                       alt="Place image"
                       className="place-card__image"
-                      height="200"
+                      height={110}
                       src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/8.jpg"
-                      width="260"
+                      width={150}
                     />
                   </a>
                 </div>
@@ -288,7 +290,7 @@ exports[`Header render 1`] = `
                     className="place-card__name"
                   >
                     <a
-                      href="#"
+                      href="/place/2"
                       onClick={[Function]}
                     >
                       The house among olive

@@ -1,55 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
+import withSortMenu from '../../hocs/with-sort-menu/with-sort-menu.jsx';
 import PlacesList from '../places-list/places-list.jsx';
+import SortMenu from '../sort-menu/sort-menu.jsx';
 import Map from '../map/map.jsx';
-import {placePropTypes} from '../../const.js';
+import {placePropTypes, cityPropTypes, PlaceCardType} from '../../const.js';
 
+const SortMenuWrapped = withSortMenu(SortMenu);
 
-const PlacesListWrapped = withActiveItem(PlacesList);
-
-const Places = ({places, activeCity, onCardTitleClick}) => {
+const Places = ({places, activeCity}) => {
 
   return (
     <div className="cities">
       <div className="cities__places-container container">
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
-          <b className="places__found">{places.length} {places.length === 1 ? `place` : `places`} to stay in {activeCity}</b>
-          <form className="places__sorting" action="#" method="get">
-            <span className="places__sorting-caption">Sort by</span>
-            <span className="places__sorting-type" tabIndex={0}>
-          Popular
-              <svg className="places__sorting-arrow" width={7} height={4}>
-                <use xlinkHref="#icon-arrow-select" />
-              </svg>
-            </span>
-            <ul className="places__options places__options--custom places__options--opened">
-              <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-              <li className="places__option" tabIndex={0}>Price: low to high</li>
-              <li className="places__option" tabIndex={0}>Price: high to low</li>
-              <li className="places__option" tabIndex={0}>Top rated first</li>
-            </ul>
-            {/*
-      <select class="places__sorting-type" id="places-sorting">
-        <option class="places__option" value="popular" selected="">Popular</option>
-        <option class="places__option" value="to-high">Price: low to high</option>
-        <option class="places__option" value="to-low">Price: high to low</option>
-        <option class="places__option" value="top-rated">Top rated first</option>
-      </select>
-      */}
-          </form>
-          {<PlacesListWrapped
-            isFavoritesCard={false}
-            places={places}
-            onActiveItemSet={() => {}}
-            onCardTitleClick={onCardTitleClick}
-          />}
+          <b className="places__found">{places.length} {places.length === 1 ? `place` : `places`} to stay in {activeCity.name}</b>
+          <SortMenuWrapped />
+          <div className="cities__places-list places__list tabs__content">
+            <PlacesList
+              type={PlaceCardType.PLACE}
+              places={places}
+            />
+          </div>
         </section>
         <div className="cities__right-section">
-          <Map
-            places={places}
-          />
+          <section className="cities__map map">
+            <Map
+              places={places}
+            />
+          </section>
         </div>
       </div>
     </div>
@@ -58,8 +38,7 @@ const Places = ({places, activeCity, onCardTitleClick}) => {
 
 Places.propTypes = {
   places: PropTypes.arrayOf(placePropTypes),
-  activeCity: PropTypes.string.isRequired,
-  onCardTitleClick: PropTypes.func.isRequired,
+  activeCity: cityPropTypes.isRequired,
 };
 
 export default Places;

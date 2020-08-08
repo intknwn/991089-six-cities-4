@@ -1,6 +1,9 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import {Router} from "react-router-dom";
 import {PlaceCard} from './place-card.jsx';
+import {PlaceCardType} from '../../const.js';
+import history from '../../history.js';
 
 const place = {
   "bedrooms": 3,
@@ -42,13 +45,17 @@ const place = {
 
 it(`PlaceCard render`, () => {
   const tree = renderer.create(
-      <PlaceCard
-        place={place}
-        isFavoritesCard={false}
-        onActiveItemSet={() => {}}
-        onCardTitleClick={() => {}}
-        onAddToFavoritesButtonClick={() => {}}
-      />
+      <Router history={history}>
+        <PlaceCard
+          place={place}
+          type={PlaceCardType.PLACE}
+          onActiveItemSet={() => {}}
+          onPlaceCardHover={() => {}}
+          onCardTitleClick={() => {}}
+          updatePlacesNearby={() => {}}
+          onAddToFavoritesButtonClick={() => {}}
+        />
+      </Router>
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

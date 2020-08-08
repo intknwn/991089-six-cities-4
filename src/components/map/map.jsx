@@ -1,20 +1,10 @@
+/* eslint-disable no-console */
 import React from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import leaflet from 'leaflet';
-import {placePropTypes} from '../../const.js';
-
-const DEFAULT_POSITION = [52.38333, 4.9];
-const DEFAULT_ZOOM = 12;
-const MAP_CONFIG = {
-  center: DEFAULT_POSITION,
-  zoom: DEFAULT_ZOOM,
-  zoomControl: false,
-  marker: true,
-};
-const ICON_CONFIG = leaflet.icon({
-  iconUrl: `img/pin.svg`,
-  iconSize: [30, 30]
-});
+import {placePropTypes, cityPropTypes, MapData} from '../../const.js';
+import {getActiveCity, getActivePlace} from '../../reducer/app/selectors.js';
 
 class Map extends React.Component {
   constructor(props) {
@@ -22,12 +12,25 @@ class Map extends React.Component {
 
     this._mapRef = React.createRef();
     this._map = null;
-    this._layerGroup = null;
+
+    this._currentPlace = this.props.currentPlace;
+
+    this._placesLayer = null;
+    this._activePlaceLayer = null;
+
     this._cityLocation = null;
+
+    this._icon = null;
+    this._activeIcon = null;
   }
 
   render() {
-    return <section className="cities__map map" ref={this._mapRef}/>;
+    return <div
+      ref={this._mapRef}
+      style={{
+        height: `100%`,
+      }}
+    />;
   }
 
   _createMap() {
@@ -36,12 +39,11 @@ class Map extends React.Component {
     }
 
     const container = this._mapRef.current;
-    const {places} = this.props;
+    const {activeCity} = this.props;
 
-    const {latitude, longitude, zoom} = places[0].city.location;
-    const cityCoords = [latitude, longitude];
+    const {latitude, longitude, zoom} = activeCity.location;
 
-    this._map = leaflet.map(container, MAP_CONFIG);
+    this._map = leaflet.map(container, MapData.CONFIG);
 
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
@@ -49,37 +51,68 @@ class Map extends React.Component {
       })
       .addTo(this._map);
 
-    this._map.setView(cityCoords, zoom);
+    this._map.setView([latitude, longitude], zoom);
+  }
 
-    if (places) {
+  _addMarkers(places, icon = this._icon) {
+    places.forEach((place) => {
+      const {latitude, longitude} = place.location;
+
+      this._placesLayer.addLayer(leaflet.marker([latitude, longitude], {icon}));
+    });
+
+    this._placesLayer.addTo(this._map);
+  }
+
+  _addMarkersWithActive(places, activePlace) {
+    const {latitude, longitude} = activePlace.location;
+    const notActivePlaces = places.filter((place) => place !== activePlace);
+    const icon = this._activeIcon;
+
+    this._addMarkers(notActivePlaces);
+
+    const activeMarker = leaflet.marker([latitude, longitude], {icon});
+    this._activePlaceLayer.addLayer(activeMarker);
+    this._activePlaceLayer.addTo(this._map);
+  }
+
+  componentDidMount() {
+    const {places, activePlace} = this.props;
+
+    this._placesLayer = leaflet.layerGroup();
+    this._activePlaceLayer = leaflet.layerGroup();
+
+    this._icon = leaflet.icon(MapData.ICON);
+    this._activeIcon = leaflet.icon(MapData.ACTIVE_ICON);
+
+    this._createMap();
+
+    if (activePlace) {
+      this._addMarkersWithActive(places, activePlace);
+    } else {
       this._addMarkers(places);
     }
   }
 
-  _addMarkers(places) {
-    const markers = places.map((place) => {
-      const {latitude, longitude} = place.location;
-
-      return leaflet.marker([latitude, longitude], {ICON_CONFIG});
-    });
-
-    this._layerGroup = leaflet.layerGroup(markers).addTo(this._map);
-  }
-
-  componentDidMount() {
-    this._createMap();
-  }
-
   componentDidUpdate(prevProps) {
-    const {places} = this.props;
+    const {places, activePlace, currentPlace, activeCity} = this.props;
 
-    const {latitude, longitude, zoom} = places[0].city.location;
-    const cityCoords = [latitude, longitude];
+    this._currentPlace = currentPlace;
 
-    if (prevProps.places !== places) {
-      this._layerGroup.clearLayers();
+    this._placesLayer.clearLayers();
+    this._activePlaceLayer.clearLayers();
+
+    if (prevProps.activeCity !== activeCity) {
+      const {latitude, longitude, zoom} = activeCity.location;
+      this._map.setView([latitude, longitude], zoom);
+    }
+
+    if (activePlace) {
+      this._addMarkersWithActive(places, activePlace);
+    } else if (this._currentPlace) {
+      this._addMarkersWithActive(places, this._currentPlace);
+    } else {
       this._addMarkers(places);
-      this._map.setView(cityCoords, zoom);
     }
   }
 
@@ -90,12 +123,24 @@ class Map extends React.Component {
   destroy() {
     this._map.remove();
     this._map = null;
-    this._layerGroup = null;
+    this._placesLayer = null;
+    this._activePlaceLayer = null;
   }
 }
 
-export default Map;
-
 Map.propTypes = {
   places: PropTypes.arrayOf(placePropTypes),
+  currentPlace: placePropTypes,
+  activePlace: placePropTypes,
+  activeCity: cityPropTypes.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  activeCity: getActiveCity(state),
+  activePlace: getActivePlace(state),
+});
+
+export {Map};
+export default connect(mapStateToProps)(Map);
+
+
