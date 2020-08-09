@@ -157,3 +157,9 @@ export const SortType = {
   HIGHT_LOW: `Price: high to low`,
   TOP_RATED: `Top rated first`
 };
+
+// Фикс для отсутствующих стилей в main.css
+export const bookmarkIconStyle = {
+  stroke: `#4481c3`,
+  fill: `#4481c3`
+};

@@ -7,12 +7,20 @@ import Header from '../header/header.jsx';
 import ReviewsList from '../reviews-list/reviews-list.jsx';
 import Map from '../map/map.jsx';
 import PlacesList from '../places-list/places-list.jsx';
-import {placePropTypes, userPropTypes, reviewPropTypes, Place, PlaceCardType, AppRoute} from '../../const.js';
 import {getRatingWidth} from '../../utils.js';
 import {getLoadingStatus} from '../../reducer/app/selectors.js';
 import {getPlaces, getNearby, getSortedByDateReviews} from '../../reducer/data/selectors.js';
 import {getUser} from '../../reducer/user/selectors.js';
 import {Operation} from '../../reducer/data/data.js';
+import {
+  placePropTypes,
+  userPropTypes,
+  reviewPropTypes,
+  Place,
+  PlaceCardType,
+  AppRoute,
+  bookmarkIconStyle
+} from '../../const.js';
 
 const ReviewFormWrapped = withReviewForm(ReviewForm);
 
@@ -119,11 +127,11 @@ class Property extends React.PureComponent {
                     {title}
                   </h1>
                   <button
-                    className={`property__bookmark-button ${isFavorite ? `property__bookmark-button--active` : ``} button`}
+                    className={`property__bookmark-button button ${isFavorite ? `property__bookmark-button--active` : ``}`}
                     onClick={() => onAddToFavoritesButtonClick(id, isFavorite)}
                     type="button"
                   >
-                    <svg className="property__bookmark-icon" width={31} height={33}>
+                    <svg className="property__bookmark-icon" style={isFavorite ? bookmarkIconStyle : null} width={31} height={33}>
                       <use xlinkHref="#icon-bookmark" />
                     </svg>
                     <span className="visually-hidden">To bookmarks</span>
@@ -251,4 +259,5 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
+export {Property};
 export default connect(mapStateToProps, mapDispatchToProps)(Property);
