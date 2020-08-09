@@ -1,16 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {placePropTypes} from '../../const.js';
+import {Link} from 'react-router-dom';
+import {placePropTypes, AppRoute, cardTypePropTypes} from '../../const.js';
+import {getRatingWidth} from '../../utils.js';
 import {Operation} from '../../reducer/data/data.js';
+import {ActionCreator} from '../../reducer/app/app.js';
 
-const getRatingWidth = (userRating) => {
-  return {
-    width: `${Math.round(userRating) * 100 / 5}%`,
-  };
-};
+const PlaceCard = ({
+  type: cardType,
+  place,
+  onPlaceCardHover,
+  updatePlacesNearby,
+  onAddToFavoritesButtonClick
+}) => {
 
-const PlaceCard = ({isFavoritesCard = false, place, onActiveItemSet, onCardTitleClick, onAddToFavoritesButtonClick}) => {
   const {
     is_premium: isPremium,
     preview_image: image,
@@ -22,18 +26,20 @@ const PlaceCard = ({isFavoritesCard = false, place, onActiveItemSet, onCardTitle
     id
   } = place;
 
+  const placePage = `${AppRoute.PLACE}/${id}`;
+
   return (
-    <article className={`${isFavoritesCard ? `favorites__card` : `cities__place-card`} place-card`}
-      onMouseEnter={() => onActiveItemSet(place)}
-      onMouseLeave={() => onActiveItemSet(null)}
+    <article className={`${cardType.CARD_CLASS} place-card`}
+      onMouseEnter={() => onPlaceCardHover(place)}
+      onMouseLeave={() => onPlaceCardHover(null)}
     >
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
-      <div className={`${isFavoritesCard ? `favorites__image-wrapper` : `cities__image-wrapper`} place-card__image-wrapper`}>
-        <a href="#">
-          <img className="place-card__image" src={image} width="260" height="200" alt="Place image" />
-        </a>
+      <div className={`${cardType.WRAPPER_CLASS} place-card__image-wrapper`}>
+        <Link to={placePage}>
+          <img className="place-card__image" src={image} width={cardType.IMAGE.WIDTH} height={cardType.IMAGE.HEIGHT} alt="Place image" />
+        </Link>
       </div>
-      <div className={isFavoritesCard ? `favorites__card-info` : `place-card__info`}>
+      <div className={cardType.INFO_CLASS}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -42,7 +48,10 @@ const PlaceCard = ({isFavoritesCard = false, place, onActiveItemSet, onCardTitle
           <button
             className={`place-card__bookmark-button ${isFavorite ? `place-card__bookmark-button--active` : ``} button`}
             type="button"
-            onClick={() => onAddToFavoritesButtonClick(id, isFavorite)}
+            onClick={() => {
+              onAddToFavoritesButtonClick(id, isFavorite);
+              updatePlacesNearby(id);
+            }}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
@@ -57,7 +66,7 @@ const PlaceCard = ({isFavoritesCard = false, place, onActiveItemSet, onCardTitle
           </div>
         </div>
         <h2 className="place-card__name">
-          <a onClick={onCardTitleClick} href="#">{title}</a>
+          <Link to={placePage}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -66,17 +75,23 @@ const PlaceCard = ({isFavoritesCard = false, place, onActiveItemSet, onCardTitle
 };
 
 PlaceCard.propTypes = {
-  isFavoritesCard: PropTypes.bool.isRequired,
-  place: placePropTypes,
-  onActiveItemSet: PropTypes.func.isRequired,
-  onCardTitleClick: PropTypes.func.isRequired,
+  type: cardTypePropTypes.isRequired,
+  place: placePropTypes.isRequired,
+  onPlaceCardHover: PropTypes.func.isRequired,
+  updatePlacesNearby: PropTypes.func.isRequired,
   onAddToFavoritesButtonClick: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   onAddToFavoritesButtonClick(id, isFavorite) {
     dispatch(Operation.setFavorite(id, isFavorite));
-  }
+  },
+  onPlaceCardHover(place) {
+    dispatch(ActionCreator.setActivePlace(place));
+  },
+  updatePlacesNearby(id) {
+    dispatch(Operation.getPlacesNearby(id));
+  },
 });
 
 export {PlaceCard};

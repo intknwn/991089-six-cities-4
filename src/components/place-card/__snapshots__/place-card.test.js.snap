@@ -10,14 +10,15 @@ exports[`PlaceCard render 1`] = `
     className="cities__image-wrapper place-card__image-wrapper"
   >
     <a
-      href="#"
+      href="/place/1"
+      onClick={[Function]}
     >
       <img
         alt="Place image"
         className="place-card__image"
-        height="200"
+        height={200}
         src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/20.jpg"
-        width="260"
+        width={260}
       />
     </a>
   </div>
@@ -87,7 +88,7 @@ exports[`PlaceCard render 1`] = `
       className="place-card__name"
     >
       <a
-        href="#"
+        href="/place/1"
         onClick={[Function]}
       >
         Nice, cozy, warm big bed apartment

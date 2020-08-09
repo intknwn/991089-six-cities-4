@@ -2,6 +2,7 @@ import React from 'react';
 import Adapter from 'enzyme-adapter-react-16';
 import {configure, shallow} from 'enzyme';
 import {PlaceCard} from '../place-card/place-card.jsx';
+import {PlaceCardType} from '../../const.js';
 
 configure({
   adapter: new Adapter(),
@@ -51,9 +52,11 @@ it(`Callback contains card element`, () => {
   const placeCard = shallow(
       <PlaceCard
         place={place}
-        isFavoritesCard={false}
-        onActiveItemSet={onMouseEnter}
+        type={PlaceCardType.PLACE}
+        onActiveItemSet={() => {}}
+        onPlaceCardHover={onMouseEnter}
         onCardTitleClick={() => {}}
+        updatePlacesNearby={() => {}}
         onAddToFavoritesButtonClick={() => {}}
       />
   );

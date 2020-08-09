@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import Header from '../../components/header/header.jsx';
-import PlaceCard from '../../components/place-card/place-card.jsx';
-import {placePropTypes, userPropTypes, AppRoute} from '../../const.js';
+import Header from '../header/header.jsx';
+import PlacesList from '../places-list/places-list.jsx';
+import {placePropTypes, userPropTypes, AppRoute, PlaceCardType} from '../../const.js';
 import {getCitiesNames} from '../../utils.js';
 import {getFavorites} from '../../reducer/data/selectors.js';
 import {getUser} from '../../reducer/user/selectors.js';
@@ -32,18 +32,10 @@ const Favorites = ({places, user}) => {
                         </div>
                       </div>
                       <div className="favorites__places">
-                        {places
-                          .filter(({city}) => city.name === cityName)
-                          .map((place, i) =>
-                            <PlaceCard
-                              key={place.title + i}
-                              place={place}
-                              isFavoritesCard={true}
-                              onActiveItemSet={() => {}}
-                              onCardTitleClick={() => {}}
-                            />
-                          )
-                        }
+                        <PlacesList
+                          type={PlaceCardType.FAVORITE}
+                          places={places.filter(({city}) => city.name === cityName)}
+                        />
                       </div>
                     </li>
                   );

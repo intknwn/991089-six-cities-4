@@ -1,0 +1,185 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReviewsList render 1`] = `
+<ul
+  className="reviews__list"
+>
+  <li
+    className="reviews__item"
+  >
+    <div
+      className="reviews__user user"
+    >
+      <div
+        className="reviews__avatar-wrapper user__avatar-wrapper"
+      >
+        <img
+          alt="Sophie"
+          className="reviews__avatar user__avatar"
+          height={54}
+          src="https://htmlacademy-react-3.appspot.com/six-cities/static/avatar/9.jpg"
+          width={54}
+        />
+      </div>
+      <span
+        className="reviews__user-name"
+      >
+        Sophie
+      </span>
+    </div>
+    <div
+      className="reviews__info"
+    >
+      <div
+        className="reviews__rating rating"
+      >
+        <div
+          className="reviews__stars rating__stars"
+        >
+          <span
+            style={
+              Object {
+                "width": "60%",
+              }
+            }
+          />
+          <span
+            className="visually-hidden"
+          >
+            Rating
+          </span>
+        </div>
+      </div>
+      <p
+        className="reviews__text"
+      >
+        Beautiful space, fantastic location and atmosphere, really a wonderful place to spend a few days. Will be back.
+      </p>
+      <time
+        className="reviews__time"
+        dateTime="2020-07-17T16:06:01.820Z"
+      >
+        July 2020
+      </time>
+    </div>
+  </li>
+  <li
+    className="reviews__item"
+  >
+    <div
+      className="reviews__user user"
+    >
+      <div
+        className="reviews__avatar-wrapper user__avatar-wrapper"
+      >
+        <img
+          alt="Christina"
+          className="reviews__avatar user__avatar"
+          height={54}
+          src="https://htmlacademy-react-3.appspot.com/six-cities/static/avatar/10.jpg"
+          width={54}
+        />
+      </div>
+      <span
+        className="reviews__user-name"
+      >
+        Christina
+      </span>
+    </div>
+    <div
+      className="reviews__info"
+    >
+      <div
+        className="reviews__rating rating"
+      >
+        <div
+          className="reviews__stars rating__stars"
+        >
+          <span
+            style={
+              Object {
+                "width": "80%",
+              }
+            }
+          />
+          <span
+            className="visually-hidden"
+          >
+            Rating
+          </span>
+        </div>
+      </div>
+      <p
+        className="reviews__text"
+      >
+        Home is amazing. It's like staying in a museum. The rooms, furnishings and artworks are incredible. The views of My Vesuvius
+      </p>
+      <time
+        className="reviews__time"
+        dateTime="2020-07-17T16:06:01.820Z"
+      >
+        July 2020
+      </time>
+    </div>
+  </li>
+  <li
+    className="reviews__item"
+  >
+    <div
+      className="reviews__user user"
+    >
+      <div
+        className="reviews__avatar-wrapper user__avatar-wrapper"
+      >
+        <img
+          alt="Kendall"
+          className="reviews__avatar user__avatar"
+          height={54}
+          src="https://htmlacademy-react-3.appspot.com/six-cities/static/avatar/6.jpg"
+          width={54}
+        />
+      </div>
+      <span
+        className="reviews__user-name"
+      >
+        Kendall
+      </span>
+    </div>
+    <div
+      className="reviews__info"
+    >
+      <div
+        className="reviews__rating rating"
+      >
+        <div
+          className="reviews__stars rating__stars"
+        >
+          <span
+            style={
+              Object {
+                "width": "80%",
+              }
+            }
+          />
+          <span
+            className="visually-hidden"
+          >
+            Rating
+          </span>
+        </div>
+      </div>
+      <p
+        className="reviews__text"
+      >
+        The house is very good, very happy, hygienic and simple living conditions around it are also very good. I hope to have the opportunity to come back. Thank you.
+      </p>
+      <time
+        className="reviews__time"
+        dateTime="2020-07-17T16:06:01.820Z"
+      >
+        July 2020
+      </time>
+    </div>
+  </li>
+</ul>
+`;

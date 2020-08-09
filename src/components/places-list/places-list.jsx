@@ -1,30 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PlaceCard from '../place-card/place-card.jsx';
-import {placePropTypes} from '../../const.js';
+import {placePropTypes, cardTypePropTypes} from '../../const.js';
 
-const PlacesList = ({places, onActiveItemSet, onCardTitleClick}) => {
-  return (
-    <div className="cities__places-list places__list tabs__content">
-      {places.map((place) => {
-        return (
-          <PlaceCard
-            isFavoritesCard={false}
-            key={place.id}
-            place={place}
-            onActiveItemSet={onActiveItemSet}
-            onCardTitleClick={onCardTitleClick}
-          />
-        );
-      })}
-    </div>
-  );
+const PlacesList = ({places, type}) => {
+  return places.map((place) => {
+    return (
+      <PlaceCard
+        type={type}
+        key={place.id}
+        place={place}
+      />
+    );
+  });
 };
 
 PlacesList.propTypes = {
+  type: cardTypePropTypes,
   places: PropTypes.arrayOf(placePropTypes),
-  onActiveItemSet: PropTypes.func.isRequired,
-  onCardTitleClick: PropTypes.func.isRequired
 };
 
 export default PlacesList;

@@ -1,19 +1,13 @@
-import React from "react";
-import Adapter from "enzyme-adapter-react-16";
+import React from 'react';
+import renderer from 'react-test-renderer';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
-import {configure, mount} from "enzyme";
 import {Router} from "react-router-dom";
-import {Main} from "./main.jsx";
+import {Property} from './property.jsx';
 import NameSpace from '../../reducer/name-space.js';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
 import history from '../../history.js';
 
 const mockStore = configureStore([]);
-
-configure({
-  adapter: new Adapter(),
-});
 
 const user = {
   "avatar_url": `img/1.png`,
@@ -22,8 +16,16 @@ const user = {
   "is_pro": false,
   "name": `Oliver.conner`,
 };
-const cities = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
-const activeCity = `Brussels`;
+
+const activeCity = {
+  name: `Brussels`,
+  location: {
+    latitude: 50.846557,
+    longitude: 4.351697,
+    zoom: 13
+  }
+};
+
 const places = [{
   "bedrooms": 3,
   "city": {
@@ -99,43 +101,84 @@ const places = [{
   "type": `house`
 }];
 
-it(`Card title click`, () => {
+const reviews = [{
+  "id": 3,
+  "user": {
+    "id": 18,
+    "is_pro": true,
+    "name": `Sophie`,
+    "avatar_url": `https://htmlacademy-react-3.appspot.com/six-cities/static/avatar/9.jpg`
+  },
+  "rating": 3,
+  "comment": `Beautiful space, fantastic location and atmosphere, really a wonderful place to spend a few days. Will be back.`,
+  "date": `2020-07-17T16:06:01.820Z`
+}, {
+  "id": 2,
+  "user": {
+    "id": 19,
+    "is_pro": false,
+    "name": `Christina`,
+    "avatar_url": `https://htmlacademy-react-3.appspot.com/six-cities/static/avatar/10.jpg`
+  },
+  "rating": 4,
+  "comment": `Home is amazing. It's like staying in a museum. The rooms, furnishings and artworks are incredible. The views of My Vesuvius`,
+  "date": `2020-07-17T16:06:01.820Z`
+}, {
+  "id": 1,
+  "user": {
+    "id": 15,
+    "is_pro": false,
+    "name": `Kendall`,
+    "avatar_url": `https://htmlacademy-react-3.appspot.com/six-cities/static/avatar/6.jpg`
+  },
+  "rating": 4,
+  "comment": `The house is very good, very happy, hygienic and simple living conditions around it are also very good. I hope to have the opportunity to come back. Thank you.`,
+  "date": `2020-07-17T16:06:01.820Z`
+}];
+
+it(`Property render`, () => {
   const store = mockStore({
     [NameSpace.DATA]: {
       places,
-      cities,
+      placesNearby: places,
+      reviews,
     },
     [NameSpace.APP]: {
-      activeCity,
+      isLoading: false,
+      activeCity
     },
     [NameSpace.USER]: {
-      authorizationStatus: AuthorizationStatus.NO_AUTH,
+      user
     },
   });
 
-  const onCardTitleClick = jest.fn();
+  const match = {
+    params: {
+      id: `1`,
+    }
+  };
 
-  const main = mount(
-      <Provider store={store}>
-        <Router history={history}>
-          <Main
-            places={places}
-            cities={cities}
-            user={user}
-            activeCity={activeCity}
-            renderSignInScreen={() => {}}
-            onCardTitleClick={onCardTitleClick}
-            onCityTabClick={() => {}}
-          />
-        </Router>
-      </Provider>
-  );
+  const tree = renderer
+    .create(
+        <Provider store={store}>
+          <Router history={history}>
+            <Property
+              places={places}
+              reviews={reviews}
+              placesNearby={places}
+              onAddToFavoritesButtonClick={() => {}}
+              getPlaceReviews={() => {}}
+              getPlacesNearby={() => {}}
+              postReview={() => {}}
+              isLoading={false}
+              match={match}
+            />
+          </Router>
+        </Provider>,
+        {
+          createNodeMock: () => document.createElement(`div`)
+        })
+    .toJSON();
 
-  const cardTitles = main.find(`.place-card__name a`);
-
-  cardTitles.forEach((title) => {
-    title.simulate(`click`);
-  });
-
-  expect(onCardTitleClick.mock.calls.length).toBe(places.length);
+  expect(tree).toMatchSnapshot();
 });

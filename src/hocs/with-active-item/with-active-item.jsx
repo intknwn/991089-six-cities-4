@@ -20,7 +20,7 @@ const withActiveItem = (Component) => {
     }
 
     render() {
-      const {onActiveItemSet} = this.props;
+      const {onActiveItemSet = () => {}} = this.props;
 
       return (
         <Component
@@ -37,7 +37,7 @@ const withActiveItem = (Component) => {
   }
 
   WithActiveItem.propTypes = {
-    onActiveItemSet: PropTypes.func.isRequired,
+    onActiveItemSet: PropTypes.func,
   };
 
   return WithActiveItem;
