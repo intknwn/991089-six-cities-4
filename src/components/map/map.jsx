@@ -23,13 +23,55 @@ class Map extends React.Component {
     this._activeIcon = null;
   }
 
-  render() {
-    return <div
-      ref={this._mapRef}
-      style={{
-        height: `100%`,
-      }}
-    />;
+  componentDidMount() {
+    const {places, activePlace} = this.props;
+
+    this._placesLayer = leaflet.layerGroup();
+    this._activePlaceLayer = leaflet.layerGroup();
+
+    this._icon = leaflet.icon(MapData.ICON);
+    this._activeIcon = leaflet.icon(MapData.ACTIVE_ICON);
+
+    this._createMap();
+
+    if (activePlace) {
+      this._addMarkersWithActive(places, activePlace);
+    } else {
+      this._addMarkers(places);
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const {places, activePlace, currentPlace, activeCity} = this.props;
+
+    this._currentPlace = currentPlace;
+
+    this._placesLayer.clearLayers();
+    this._activePlaceLayer.clearLayers();
+
+    if (prevProps.activeCity !== activeCity) {
+      const {latitude, longitude, zoom} = activeCity.location;
+      this._map.setView([latitude, longitude], zoom);
+    }
+
+    if (activePlace) {
+      this._addMarkersWithActive(places, activePlace);
+    } else if (this._currentPlace) {
+      this._addMarkersWithActive(places, this._currentPlace);
+    } else {
+      this._addMarkers(places);
+    }
+  }
+
+  componentWillUnmount() {
+    this._destroy();
+  }
+
+  _destroy() {
+    this._map.remove();
+    this._map = null;
+    this._placesLayer = null;
+    this._activePlaceLayer = null;
   }
 
   _createMap() {
@@ -75,55 +117,13 @@ class Map extends React.Component {
     this._activePlaceLayer.addTo(this._map);
   }
 
-  componentDidMount() {
-    const {places, activePlace} = this.props;
-
-    this._placesLayer = leaflet.layerGroup();
-    this._activePlaceLayer = leaflet.layerGroup();
-
-    this._icon = leaflet.icon(MapData.ICON);
-    this._activeIcon = leaflet.icon(MapData.ACTIVE_ICON);
-
-    this._createMap();
-
-    if (activePlace) {
-      this._addMarkersWithActive(places, activePlace);
-    } else {
-      this._addMarkers(places);
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    const {places, activePlace, currentPlace, activeCity} = this.props;
-
-    this._currentPlace = currentPlace;
-
-    this._placesLayer.clearLayers();
-    this._activePlaceLayer.clearLayers();
-
-    if (prevProps.activeCity !== activeCity) {
-      const {latitude, longitude, zoom} = activeCity.location;
-      this._map.setView([latitude, longitude], zoom);
-    }
-
-    if (activePlace) {
-      this._addMarkersWithActive(places, activePlace);
-    } else if (this._currentPlace) {
-      this._addMarkersWithActive(places, this._currentPlace);
-    } else {
-      this._addMarkers(places);
-    }
-  }
-
-  componentWillUnmount() {
-    this.destroy();
-  }
-
-  destroy() {
-    this._map.remove();
-    this._map = null;
-    this._placesLayer = null;
-    this._activePlaceLayer = null;
+  render() {
+    return <div
+      ref={this._mapRef}
+      style={{
+        height: `100%`,
+      }}
+    />;
   }
 }
 

@@ -19,9 +19,10 @@ const App = () => {
           path={AppRoute.FAVORITES}
           render={() => <Favorites />}
         />
-        <Route exact path={`${AppRoute.PLACE}/:id?`} component={Property}/>
+        <Route exact path={`${AppRoute.OFFER}/:id?`} component={Property} />
         <Route exact path={AppRoute.SIGN_IN} component={SignIn} />
         <Route exact path={AppRoute.ROOT} component={Main} />
+        <Route path="" component={Main} />
       </Switch>
     </Router>
   );

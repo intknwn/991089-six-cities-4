@@ -76,7 +76,6 @@ const Operation = {
         dispatch(AppActionCreator.setCity(cities[0]));
         dispatch(ActionCreator.loadPlaces(response.data));
         dispatch(ActionCreator.setCities(cities));
-
       });
   },
   setFavorite: (id, isFavorite) => (dispatch, getState, api) => {
@@ -112,6 +111,9 @@ const Operation = {
         dispatch(ActionCreator.getReviews(response.data));
       })
       .then(() => {
+        dispatch(AppActionCreator.setLoadingStatus(false));
+      })
+      .catch(() => {
         dispatch(AppActionCreator.setLoadingStatus(false));
       });
   },

@@ -22,6 +22,14 @@ const withReviewForm = (Component) => {
       this._handleCommentChange = this._handleCommentChange.bind(this);
     }
 
+    componentDidUpdate(prevProps, prevState) {
+      if (prevState.comment !== this.state.comment || prevState.rating !== this.state.rating) {
+        this.setState((state) => ({
+          isDisabled: state.comment.length < ReviewsForm.MIN_COMMENT_LENGTH || state.rating === 0,
+        }));
+      }
+    }
+
     _handleFormSubmit(evt) {
       evt.preventDefault();
 
@@ -45,14 +53,6 @@ const withReviewForm = (Component) => {
       this.setState({
         comment: evt.target.value,
       });
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-      if (prevState.comment !== this.state.comment || prevState.rating !== this.state.rating) {
-        this.setState((state) => ({
-          isDisabled: state.comment.length < ReviewsForm.MIN_COMMENT_LENGTH || state.rating === 0,
-        }));
-      }
     }
 
     render() {

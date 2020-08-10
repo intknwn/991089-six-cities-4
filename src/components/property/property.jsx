@@ -31,9 +31,16 @@ class Property extends React.PureComponent {
   }
 
   componentDidMount() {
-    const {getPlaceReviews, getPlacesNearby} = this.props;
-    getPlaceReviews(this._place.id);
-    getPlacesNearby(this._place.id);
+    const {places, match, getPlaceReviews, getPlacesNearby} = this.props;
+
+    const placeId = Number(match.params.id);
+    const thisPlace = places.find((place) => place.id === placeId);
+    if (thisPlace) {
+      this._place = thisPlace;
+      getPlaceReviews(placeId);
+      getPlacesNearby(placeId);
+    }
+
   }
 
   componentDidUpdate(prevProps) {
@@ -47,10 +54,10 @@ class Property extends React.PureComponent {
 
     const placeId = Number(match.params.id);
 
-    if (prevProps.location !== location) {
+    if (prevProps.location !== location || prevProps.places !== places) {
       const regex = /^\d+$/;
 
-      if (!regex.test(match.params.id)) {
+      if (!regex.test(match.params.id) || placeId > places.length) {
         history.push(AppRoute.ROOT);
         return;
       }
@@ -65,23 +72,15 @@ class Property extends React.PureComponent {
     }
   }
 
-  render() {
+  _renderPlace() {
     const {
       user,
       reviews,
-      match,
-      places,
       placesNearby,
       onAddToFavoritesButtonClick,
       isLoading,
       postReview,
     } = this.props;
-
-    const placeId = Number(match.params.id);
-    const index = places.findIndex((place) => place.id === placeId);
-    if (index >= 0) {
-      this._place = places.find((place) => place.id === placeId);
-    }
 
     const {
       bedrooms,
@@ -216,6 +215,10 @@ class Property extends React.PureComponent {
       </div>
     );
   }
+
+  render() {
+    return this._place ? this._renderPlace() : <div></div>;
+  }
 }
 
 Property.propTypes = {
@@ -233,14 +236,20 @@ Property.propTypes = {
   getPlacesNearby: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   postReview: PropTypes.func.isRequired,
-  location: PropTypes.shape({}),
+  location: PropTypes.shape({
+    hash: PropTypes.string,
+    key: PropTypes.string,
+    pathname: PropTypes.string,
+    search: PropTypes.string,
+    state: PropTypes.object,
+  }),
 };
 
 const mapStateToProps = (state) => ({
   places: getPlaces(state),
   placesNearby: getNearby(state) || [],
   user: getUser(state),
-  reviews: getSortedByDateReviews(state),
+  reviews: getSortedByDateReviews(state) || [],
   isLoading: getLoadingStatus(state),
 });
 
