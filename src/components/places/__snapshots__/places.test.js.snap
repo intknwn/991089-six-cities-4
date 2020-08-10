@@ -95,7 +95,7 @@ exports[`Places render 1`] = `
             className="cities__image-wrapper place-card__image-wrapper"
           >
             <a
-              href="/place/1"
+              href="/offer/1"
               onClick={[Function]}
             >
               <img
@@ -173,7 +173,7 @@ exports[`Places render 1`] = `
               className="place-card__name"
             >
               <a
-                href="/place/1"
+                href="/offer/1"
                 onClick={[Function]}
               >
                 Nice, cozy, warm big bed apartment
@@ -195,7 +195,7 @@ exports[`Places render 1`] = `
             className="cities__image-wrapper place-card__image-wrapper"
           >
             <a
-              href="/place/2"
+              href="/offer/2"
               onClick={[Function]}
             >
               <img
@@ -273,7 +273,7 @@ exports[`Places render 1`] = `
               className="place-card__name"
             >
               <a
-                href="/place/2"
+                href="/offer/2"
                 onClick={[Function]}
               >
                 The house among olive

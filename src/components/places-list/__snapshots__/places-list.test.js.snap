@@ -11,7 +11,7 @@ Array [
       className="cities__image-wrapper place-card__image-wrapper"
     >
       <a
-        href="/place/1"
+        href="/offer/1"
         onClick={[Function]}
       >
         <img
@@ -89,7 +89,7 @@ Array [
         className="place-card__name"
       >
         <a
-          href="/place/1"
+          href="/offer/1"
           onClick={[Function]}
         >
           Nice, cozy, warm big bed apartment
@@ -111,7 +111,7 @@ Array [
       className="cities__image-wrapper place-card__image-wrapper"
     >
       <a
-        href="/place/2"
+        href="/offer/2"
         onClick={[Function]}
       >
         <img
@@ -189,7 +189,7 @@ Array [
         className="place-card__name"
       >
         <a
-          href="/place/2"
+          href="/offer/2"
           onClick={[Function]}
         >
           The house among olive

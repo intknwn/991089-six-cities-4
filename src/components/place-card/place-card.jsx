@@ -26,7 +26,7 @@ const PlaceCard = ({
     id
   } = place;
 
-  const placePage = `${AppRoute.PLACE}/${id}`;
+  const placePage = `${AppRoute.OFFER}/${id}`;
 
   return (
     <article className={`${cardType.CARD_CLASS} place-card`}

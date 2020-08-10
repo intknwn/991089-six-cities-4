@@ -34,8 +34,8 @@ export const getReviews = (state) => {
 
 export const getSortedByDateReviews = createSelector(
     getReviews,
-    (reviews) => reviews.sort((a, b) => {
-      return moment(a).isAfter(moment(b)) ? 1 : -1;
+    (reviews) => reviews.sort((reviewLeft, reviewRight) => {
+      return moment(reviewLeft.date).isAfter(moment(reviewRight.date)) ? -1 : 1;
     })
 );
 

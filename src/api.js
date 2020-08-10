@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {notify} from 'react-notify-toast';
 
 const Error = {
   BAD_REQUEST: 400,
@@ -21,19 +22,28 @@ export const createAPI = (onError, onUnauthorized) => {
   const onFail = (err) => {
     const {response} = err;
 
+    if (!response) {
+      notify.show(`Возникла непредвиденная ошибка: ${err.message}`, `error`);
+      throw err;
+    }
+
     if (response.status === Error.UNAUTHORIZED) {
       onUnauthorized(response.config);
 
       throw err;
     }
 
-    if (response.status === Error.INTERNAL_ERROR || Error.SERVICE_UNAVAILABLE || Error.BAD_REQUEST) {
-      onError(response.data.error);
-
-      throw err;
+    switch (response.status) {
+      case Error.INTERNAL_ERROR:
+      case Error.SERVICE_UNAVAILABLE:
+      case Error.BAD_REQUEST:
+        onError(response.data.error);
+        throw err;
+      default:
+        notify.show(`Возникла непредвиденная ошибка: ${err.message}`, `error`);
+        throw err;
     }
 
-    throw err;
   };
 
   api.interceptors.response.use(onSuccess, onFail);

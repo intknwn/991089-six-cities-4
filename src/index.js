@@ -14,8 +14,7 @@ import reducer from './reducer/reducer.js';
 
 
 const onError = (err) => {
-  notify.show(err, `error`);
-  store.dispatch(ActionCreator.catchError(err));
+  notify.show(`Возникла непредвиденная ошибка: ${err}`, `error`);
 };
 
 const onUnauthorized = ({method, url}) => {

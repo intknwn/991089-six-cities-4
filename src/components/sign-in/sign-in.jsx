@@ -2,9 +2,10 @@ import React, {createRef} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const.js';
-import {Operation as UserOperation} from "../../reducer/user/user.js";
-
+import {AppRoute, userPropTypes} from '../../const.js';
+import {Operation as UserOperation} from '../../reducer/user/user.js';
+import {getUser} from '../../reducer/user/selectors.js';
+import history from '../../history.js';
 
 class SignIn extends React.PureComponent {
   constructor(props) {
@@ -25,6 +26,15 @@ class SignIn extends React.PureComponent {
       email: this.emailRef.current.value,
       password: this.passwordRef.current.value,
     });
+  }
+
+  componentDidUpdate() {
+    const {user} = this.props;
+
+    if (user) {
+      history.push(AppRoute.ROOT);
+      return;
+    }
   }
 
   render() {
@@ -88,8 +98,13 @@ class SignIn extends React.PureComponent {
 }
 
 SignIn.propTypes = {
+  user: userPropTypes,
   onSubmit: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  user: getUser(state),
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit(authData) {
@@ -98,4 +113,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {SignIn};
-export default connect(null, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

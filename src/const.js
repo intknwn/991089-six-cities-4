@@ -7,8 +7,6 @@ export const OfferType = {
   HOTEL: `hotel`
 };
 
-export const citiesNames = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
-
 export const placePropTypes = PropTypes.shape({
   "bedrooms": PropTypes.number.isRequired,
   "city": PropTypes.shape({
@@ -88,7 +86,7 @@ export const AppRoute = {
   SIGN_IN: `/login`,
   ROOT: `/`,
   FAVORITES: `/favorites`,
-  PLACE: `/place`,
+  OFFER: `/offer`,
 };
 
 export const Place = {
