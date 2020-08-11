@@ -9,7 +9,7 @@ const AuthorizationStatus = {
 };
 
 const initialState = {
-  authorizationStatus: AuthorizationStatus.NO_AUTH,
+  authorizationStatus: null,
   user: null,
 };
 
@@ -42,6 +42,7 @@ const Operation = {
         dispatch(DataOperation.getFavorites());
       })
       .catch((err) => {
+        dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
         throw err;
       });
   },

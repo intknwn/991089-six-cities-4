@@ -374,7 +374,7 @@ describe(`Operation works correctly`, () => {
   });
 
   it(`Should make a correct POST request to comments/id`, function () {
-    const postReviewLoader = Operation.postReview(reviews[0]);
+    const postReviewLoader = Operation.postReview(reviews[0], () => {});
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
 

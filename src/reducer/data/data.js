@@ -98,7 +98,7 @@ const Operation = {
         dispatch(ActionCreator.getReviews(response.data));
       });
   },
-  postReview: ({comment, id, rating}) => (dispatch, getState, api) => {
+  postReview: ({comment, id, rating}, onSuccess) => (dispatch, getState, api) => {
     const review = {
       comment,
       rating: Number(rating),
@@ -108,6 +108,7 @@ const Operation = {
 
     return api.post(`/comments/${id}`, review)
       .then((response) => {
+        onSuccess();
         dispatch(ActionCreator.getReviews(response.data));
       })
       .then(() => {

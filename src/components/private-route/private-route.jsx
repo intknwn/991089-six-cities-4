@@ -6,11 +6,19 @@ import {AppRoute} from "../../const.js";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 
-const PrivateRoute = (props) => {
-  const {render, path, exact, authorizationStatus} = props;
+class PrivateRoute extends React.PureComponent {
+  constructor(props) {
+    super(props);
+  }
 
-  return (
-    <Route
+  componentDidUpdate() {
+    this._createRoute();
+  }
+
+  _createRoute() {
+    const {render, path, exact, authorizationStatus} = this.props;
+
+    return authorizationStatus ? <Route
       path={path}
       exact={exact}
       render={() => {
@@ -20,12 +28,16 @@ const PrivateRoute = (props) => {
             : <Redirect to={AppRoute.SIGN_IN} />
         );
       }}
-    />
-  );
-};
+    /> : <div></div>;
+  }
+
+  render() {
+    return this._createRoute();
+  }
+}
 
 PrivateRoute.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
+  authorizationStatus: PropTypes.string,
   exact: PropTypes.bool.isRequired,
   path: PropTypes.string.isRequired,
   render: PropTypes.func.isRequired,

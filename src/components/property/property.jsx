@@ -7,6 +7,7 @@ import Header from '../header/header.jsx';
 import ReviewsList from '../reviews-list/reviews-list.jsx';
 import Map from '../map/map.jsx';
 import PlacesList from '../places-list/places-list.jsx';
+import history from '../../history.js';
 import {getRatingWidth} from '../../utils.js';
 import {getLoadingStatus} from '../../reducer/app/selectors.js';
 import {getPlaces, getNearby, getSortedByDateReviews} from '../../reducer/data/selectors.js';
@@ -40,7 +41,6 @@ class Property extends React.PureComponent {
       getPlaceReviews(placeId);
       getPlacesNearby(placeId);
     }
-
   }
 
   componentDidUpdate(prevProps) {
@@ -263,8 +263,8 @@ const mapDispatchToProps = (dispatch) => ({
   getPlacesNearby(id) {
     dispatch(Operation.getPlacesNearby(id));
   },
-  postReview(review) {
-    dispatch(Operation.postReview(review));
+  postReview(review, onSuccess) {
+    dispatch(Operation.postReview(review, onSuccess));
   },
 });
 
