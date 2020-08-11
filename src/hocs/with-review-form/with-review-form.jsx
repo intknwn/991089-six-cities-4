@@ -17,6 +17,7 @@ const withReviewForm = (Component) => {
         isDisabled: true,
       };
 
+      this._handleSuccessfulSubmit = this._handleSuccessfulSubmit.bind(this);
       this._handleFormSubmit = this._handleFormSubmit.bind(this);
       this._handleRatingChange = this._handleRatingChange.bind(this);
       this._handleCommentChange = this._handleCommentChange.bind(this);
@@ -30,17 +31,20 @@ const withReviewForm = (Component) => {
       }
     }
 
+    _handleSuccessfulSubmit() {
+      this.setState({
+        comment: ``,
+        rating: 0,
+      });
+    }
+
     _handleFormSubmit(evt) {
       evt.preventDefault();
 
       const {postReview} = this.props;
       const {comment, rating, id} = this.state;
 
-      postReview({comment, rating, id});
-      this.setState({
-        comment: ``,
-        rating: 0,
-      });
+      postReview({comment, rating, id}, this._handleSuccessfulSubmit);
     }
 
     _handleRatingChange(evt) {
